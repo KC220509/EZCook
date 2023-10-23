@@ -1,0 +1,227 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#2AFFFFFF"
+    tools:context=".HomeActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/parent_constraint_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Các thành phần khác ở đây -->
+        <LinearLayout
+            android:id="@+id/linear_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal"
+            android:paddingStart="15dp"
+            android:paddingEnd="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/circleImageView_logo"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginEnd="10dp"
+                android:background="@android:color/transparent"
+                app:cardCornerRadius="20dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    app:srcCompat="@drawable/ezicook" />
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Chào, Khánh Công"
+                android:textColor="#003E42"
+                android:textSize="55px" />
+
+            <ImageView
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="20dp"
+                android:src="@drawable/ic_notification" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_question"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingStart="25dp"
+            android:paddingTop="5dp"
+            android:paddingEnd="25dp"
+            android:paddingBottom="5dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_header">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left|center"
+                android:fontFamily="@font/quicksand_bold"
+                android:text="Bạn muốn nấu món gì hôm nay ?"
+                android:textColor="#01442D"
+                android:textSize="55px" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="30dp"
+            android:background="@drawable/edit_search"
+            android:elevation="4dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="3dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linear_question">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="30dp"
+                android:padding="2dp"
+                android:src="@drawable/ic_search" />
+
+            <EditText
+                android:id="@+id/edit_search_home"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#F0F0F0"
+                android:fontFamily="@font/quicksand_bold"
+                android:gravity="start|center"
+                android:hint="Tìm kiếm"
+                android:inputType="text"
+                android:maxLength="50"
+                android:paddingStart="8dp"
+                android:paddingEnd="5dp"
+                android:paddingBottom="1dp"
+                android:textColor="#C8008374"
+                android:textColorHint="#A9008374"
+                android:textSize="50px" />
+
+            <ImageView
+                android:id="@+id/image_bt_boloc"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_marginEnd="30dp"
+                android:src="@drawable/ic_filter" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_line"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="70dp"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="70dp"
+            app:layout_constraintTop_toBottomOf="@+id/linear_search">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_weight="1"
+                android:background="#008758" />
+        </LinearLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/linear_category_regime_eat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="20dp"
+            app:layout_constraintTop_toBottomOf="@+id/linear_line">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_category_regime_eat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/edit_backgr_constraint_cate"
+                android:clipToPadding="false"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/linear_category_regime_eat"
+            app:layout_constraintBottom_toTopOf="@+id/bottom_constraint_layout">
+
+            <!-- Nội dung của NestedScrollView -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/view_category"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+
+                app:layout_constraintTop_toBottomOf="@+id/linear_category_regime_eat">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_category"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/bottom_constraint_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <!-- Các phần tử khác của giao diện ở đây -->
+
+            <com.google.android.material.bottomnavigation.BottomNavigationView
+                android:id="@+id/bottom_navigation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/background_bottom_navigation"
+                android:elevation="10dp"
+                app:itemIconTint="@color/color_bottom_navigation"
+                app:itemTextColor="@color/color_bottom_navigation"
+                app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:menu="@menu/menu_bottom_navigation">
+        </com.google.android.material.bottomnavigation.BottomNavigationView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

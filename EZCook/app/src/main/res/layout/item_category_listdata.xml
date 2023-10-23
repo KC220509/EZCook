@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/title_listdata_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left|center"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="Category 1 !!!"
+        android:textColor="#01442D"
+        android:textSize="65px" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_listdata_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"/>
+</LinearLayout>

@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">EZCook</string>
+    <string name="botom_home">Trang chủ</string>
+    <string name="botom_trend">Thịnh hành</string>
+    <string name="botom_post">Đăng bài</string>
+    <string name="botom_note">Sổ tay</string>
+    <string name="botom_profile">Cá nhân</string>
+
+</resources>

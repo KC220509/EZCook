@@ -6,4 +6,12 @@
     <string name="botom_note">Sổ tay</string>
     <string name="botom_profile">Cá nhân</string>
 
+    <string name="Like_fragment">Like Fragment</string>
+    <string name="Save_fragment">Save Fragment</string>
+    <string name="Collection_fragment">Collection Fragment</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="baidang_fragment">Bài đăng Fragment</string>
+    <string name="yeuthich_fragment">Yêu thích Fragment</string>
+
 </resources>

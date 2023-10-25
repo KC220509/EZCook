@@ -3,14 +3,9 @@ package com.example.ezcook;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
 public class LoginActivity extends AppCompatActivity {
     Button bt_login_success, bt_signup;
@@ -18,7 +13,7 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        setContentView(R.layout.h_activity_login);
 
         Anhxa();
 
@@ -32,7 +27,7 @@ public class LoginActivity extends AppCompatActivity {
         bt_login_success.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent_login_success = new Intent(LoginActivity.this, HomeActivity.class);
+                Intent intent_login_success = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent_login_success);
             }
         });

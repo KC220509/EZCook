@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".p_SettingUserActivity">
+
+    <Button
+        android:id="@+id/quaylai_btn"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/p_quaylai"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <TextView
+        android:id="@+id/title_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:fontFamily="@font/quicksand_bold"
+        android:text="Chỉnh sửa cá nhân"
+        android:textSize="70px"
+        android:textColor="#000000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/quaylai_btn" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/CardViewAvata"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
+            android:layout_marginTop="5dp"
+            app:cardCornerRadius="70dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/title_txt">
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/p_avatabep"/>
+            <Button
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginStart="80dp"
+                android:layout_marginTop="90dp"
+                android:background="@drawable/p_add_img"
+                />
+        </androidx.cardview.widget.CardView>
+
+    <LinearLayout
+        android:id="@+id/lineargt"
+        android:layout_width="match_parent"
+        android:layout_height="415dp"
+        android:layout_marginTop="5dp"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@id/CardViewAvata">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:fontFamily="@font/quicksand_bold"
+            android:text="Tài khoản"
+            android:textColor="#808080"
+            android:textSize="40px" />
+
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            app:cardElevation="10dp"
+            app:cardCornerRadius="15dp">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:text="Tên"
+                    android:textSize="50px" />
+
+                <EditText
+                    android:id="@+id/editTextTen"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:hint="Hoàng Phúc"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="40px"
+                    android:inputType="text"
+                    android:textColorHint="#000000"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:text="ID EZCook"
+                    android:textSize="50px"
+                    android:fontFamily="@font/quicksand_bold"/>
+                <EditText
+                    android:id="@+id/editTextID"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:hint="PhucDepZai"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="40px"
+                    android:inputType="text"
+                    android:textColorHint="#000000"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:text="Email"
+                    android:textSize="50px"
+                    android:fontFamily="@font/quicksand_bold"/>
+                <EditText
+                    android:id="@+id/editTextEmail"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:hint="HoangPhuc1503@gmail.com"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="40px"
+                    android:inputType="text"
+                    android:textColorHint="#000000"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:text="Số điện thoại"
+                    android:textSize="50px"
+                    android:fontFamily="@font/quicksand_bold"/>
+                <EditText
+                    android:id="@+id/editTextText"
+                    android:layout_width="325dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="30dp"
+                    android:hint="0866545525"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:textSize="40px"
+                    android:inputType="text"
+                    android:textColorHint="#000000"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="15dp"
+                    android:text="Giới Thiệu"
+                    android:textSize="50px"
+                    android:fontFamily="@font/quicksand_bold"/>
+
+                <EditText
+                    android:id="@+id/editTextPhoneNumberSignup"
+                    android:layout_width="325dp"
+                    android:layout_height="60dp"
+                    android:layout_marginStart="30dp"
+                    android:layout_marginBottom="5dp"
+                    android:background="@drawable/p_edittext_background"
+                    android:ems="10"
+                    android:gravity="top"
+                    android:fontFamily="@font/quicksand_bold"
+                    android:padding="16dp"
+                    android:textColor="#000000"/>
+
+            </LinearLayout>
+
+
+
+        </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+    <Button
+        android:id="@+id/monan_btn"
+        android:layout_width="180dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        app:backgroundTint="@null"
+        android:background="@drawable/p_edit_background_bt_monan"
+        android:layout_gravity="center"
+        android:text="Cập nhật"
+        android:textColor="#fff"
+        android:fontFamily="@font/quicksand_bold"
+        app:layout_constraintTop_toBottomOf="@id/lineargt"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>

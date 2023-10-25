@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/p_dialog_bg">
+
+    <ImageView
+        android:id="@+id/choosetxt"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/p_gachngang"
+        android:layout_gravity="center" />
+
+    <LinearLayout
+        android:id="@+id/layoutSetting"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+    <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/p_setting"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cài đặt và quyền riêng tư"
+            android:fontFamily="@font/quicksand_medium"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutCaNhan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/p_userr"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Chỉnh sửa trang cá nhân"
+            android:fontFamily="@font/quicksand_medium"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutQR"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/p_qr"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Mã QR của tôi"
+            android:fontFamily="@font/quicksand_medium"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutHD"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/p_hoatdong"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hoạt động của bạn"
+            android:fontFamily="@font/quicksand_medium"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF"
+    tools:context=".fragment.FavoriteFragment">
+    <LinearLayout
+        android:id="@+id/favorite_header"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/h_account_circle_24" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="50dp"
+            android:layout_marginLeft="50dp"
+            android:textSize="24dp"
+            android:textStyle="bold"
+            android:textColor="#206E56"
+            android:text="Sổ tay của bạn">
+
+        </TextView>
+        <Button
+            android:id="@+id/btn_create"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:drawableStart="@drawable/h_bottom_post1"
+            android:paddingEnd="0dp"
+            android:gravity="center"
+            app:backgroundTint="@null"
+            android:background="@android:color/transparent"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tablayout_favorite"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tabLayout_library"
+            android:layout_marginTop="70dp"
+            android:layout_width="match_parent"
+            android:background="#FFFFFF"
+            android:layout_height="wrap_content"
+            app:tabTextColor="#000000"
+            app:tabSelectedTextColor="#00ED20"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_library"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </LinearLayout>
+
+</RelativeLayout>

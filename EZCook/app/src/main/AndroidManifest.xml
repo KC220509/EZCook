@@ -127,7 +127,15 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".p_SettingUserActivity"
+            android:exported="true">
+        </activity>
 
+        <activity
+            android:name=".p_SettingActivity"
+            android:exported="true">
+        </activity>
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />

@@ -47,8 +47,8 @@ public class FavoriteFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mainActivity, f_CreateActivity.class);
-                startActivityForResult(intent, REQUEST_CREATE_ACTIVITY);
-//                startActivity(intent);
+//                startActivityForResult(intent, REQUEST_CREATE_ACTIVITY);
+                startActivity(intent);
 //                mainActivity.finish();
             }
         });

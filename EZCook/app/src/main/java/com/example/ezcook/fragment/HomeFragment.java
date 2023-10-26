@@ -99,10 +99,14 @@ public class HomeFragment extends Fragment {
 
         List<h_category_foodnew_model> categoryFoodnewModels = new ArrayList<>();
         categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Thịt kho tàu", "10 phút", "200 kcal", R.drawable.h_ic_user, "Bùi Đức Công"));
+        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_1, "Cơm chiên trứng", "30 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
+        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Cơm chiên hải sản", "25 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
+        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_3, "Thịt kho tàu", "15 phút", "200 kcal", R.drawable.h_ic_user, "Trần Thị Lê Trinh"));
+        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.image_test, "Thịt kho", "20 phút", "200 kcal", R.drawable.cat_4, "Khánh Công"));
+        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Thịt kho tàu", "10 phút", "200 kcal", R.drawable.h_ic_user, "Bùi Đức Công"));
         categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_1, "Thịt kho tàu", "30 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
         categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Cơm chiên hải sản", "25 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_3, "Thịt kho tàu", "15 phút", "200 kcal", R.drawable.h_ic_user, "Trần Thị Lê Trinh Buồi Khánh"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.image_test, "Thịt kho tàu", "20 phút", "200 kcal", R.drawable.cat_4, "Khánh Công"));
+        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_3, "Thịt kho tàu", "15 phút", "200 kcal", R.drawable.h_ic_user, "Trần Thị Lê Trinh"));
 
 
         List<h_category_listdata_model> categoryListdataModels = new ArrayList<>();

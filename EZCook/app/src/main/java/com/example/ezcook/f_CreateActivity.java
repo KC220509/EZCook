@@ -25,7 +25,7 @@ public class f_CreateActivity extends AppCompatActivity {
         btnback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                setResult(Activity.RESULT_OK);
+//                setResult(Activity.RESULT_OK);
                 finish();
             }
         });

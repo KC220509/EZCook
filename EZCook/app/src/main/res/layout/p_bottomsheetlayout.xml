@@ -83,5 +83,22 @@
             android:text="Hoạt động của bạn"
             android:fontFamily="@font/quicksand_medium"/>
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutAuthor"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <ImageView
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:background="@drawable/p_ic_author"/>
+        <TextView
+            android:layout_marginStart="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author"
+            android:fontFamily="@font/quicksand_medium"/>
+    </LinearLayout>
 
 </LinearLayout>

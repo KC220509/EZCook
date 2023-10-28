@@ -3,6 +3,7 @@ package com.example.ezcook.fragment;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_FOODNEW;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SUGGEST;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
+import com.example.ezcook.f_StepCookActivity;
 import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_regime_eat_model;
 import com.example.ezcook.model.h_category_suggest_model;
@@ -33,6 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+
 
     private MainActivity mainActivity;
 

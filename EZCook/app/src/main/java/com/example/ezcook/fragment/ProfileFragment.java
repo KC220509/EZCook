@@ -1,26 +1,43 @@
 package com.example.ezcook.fragment;
 
+import static android.app.Activity.RESULT_OK;
+
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResult;
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultCaller;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.bumptech.glide.Glide;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.p_AdapterViewPager;
@@ -29,8 +46,27 @@ import com.example.ezcook.p_SettingActivity;
 import com.example.ezcook.p_SettingUserActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ProfileFragment extends Fragment {
+//    public static final int MY_REQUEST_CODE = 10;
+//    private ActivityResultLauncher<Intent> intentActivityResultLauncher = registerForActivityResult(
+//            new ActivityResultContracts.StartActivityForResult(),new ActivityResultCallback<ActivityResult>() {
+//        @Override
+//        public void onActivityResult(ActivityResult result) {
+//            if(result.getResultCode() == RESULT_OK){
+//                Intent intent = result.getData();
+//                if(intent == null){
+//                    return;
+//                }
+//                Uri uri = intent.getData();
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext(), uri);
+//
+//            }
+//        }
+//    });
+
     private View view_home;
     private MainActivity mainActivity;
     private TabLayout mTabLayout;
@@ -38,6 +74,9 @@ public class ProfileFragment extends Fragment {
     private p_AdapterViewPager mViewPagerAdapter;
     private Button bottomsheet;
     private Button btn_cscanhan;
+    private ImageView imageuserprofile;
+    private TextView nameuserprofile, emailuserprofile;
+
 
     @Nullable
     @Override
@@ -47,9 +86,14 @@ public class ProfileFragment extends Fragment {
 
         Anhxa(view_home);
         Action();
+        showUserProfileInfo();
         return view_home;
     }
     private void Anhxa(View view){
+        imageuserprofile = view.findViewById(R.id.imageUserProfile);
+        nameuserprofile = view.findViewById(R.id.nameUserProfile);
+        emailuserprofile = view.findViewById(R.id.emailUserProfile);
+
         bottomsheet = view.findViewById(R.id.bottom_sheet);
         btn_cscanhan = view.findViewById(R.id.btn_cscanhan);
 
@@ -146,4 +190,46 @@ public class ProfileFragment extends Fragment {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialoAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
+    private void showUserProfileInfo(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null){
+            return;
+        }
+
+        String name_userprofile = user.getDisplayName();
+        String email_userprofile = user.getEmail();
+        Uri photoUrl = user.getPhotoUrl();
+//
+        if (name_userprofile == null){
+            nameuserprofile.setVisibility(View.GONE);
+        }
+        else {
+            nameuserprofile.setVisibility(View.VISIBLE);
+        }
+
+        nameuserprofile.setText(name_userprofile);
+        emailuserprofile.setText(email_userprofile);
+        Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(imageuserprofile);
+
+    }
+
+//    @Override
+//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+//        if(requestCode == MY_REQUEST_CODE){
+//            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+//                openGallery();
+//            }else {
+//
+//            }
+//        }
+//    }
+//    public void openGallery(){
+//        Intent intent = new Intent();
+//        intent.setType("image/*");
+//        intent.setAction(Intent.ACTION_GET_CONTENT);
+//        intentActivityResultLauncher.launch(Intent.createChooser(intent, "Select image"));
+//
+//    }
+
 }

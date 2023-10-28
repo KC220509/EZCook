@@ -63,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return -1; // Trả về -1 nếu không tìm thấy ID phù hợp.
     }
+
+
     //    private void Action(){
 //        //ngăn người dùng vuốt trang
 //        view_main.setUserInputEnabled(false);

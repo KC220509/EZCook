@@ -8,23 +8,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
+        android:layout_centerHorizontal="true"
         android:gravity="center">
+<!--        <Button-->
+<!--            android:id="@+id/btn_back"-->
+<!--            android:layout_width="25dp"-->
+<!--            android:layout_height="25dp"-->
+<!--            android:drawableStart="@drawable/p_quaylai"-->
+<!--            android:background="@android:color/transparent"-->
+<!--            />-->
         <Button
             android:id="@+id/btn_back"
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:layout_marginRight="10dp"
-            app:backgroundTint="@null"
-            android:text="Trở về"
-            android:textColor="#000"
-            android:textSize="14dp"
-            android:textStyle="bold"
-            android:background="@android:color/transparent"
-            />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:background="@drawable/p_quaylai"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_marginLeft="55dp"
+            android:layout_marginRight="10dp"
             android:text="Tạo bộ sưu tập mới"
             android:textColor="@color/black"
             android:textStyle="bold"
@@ -34,7 +38,6 @@
             android:id="@+id/btn_create_collection"
             android:layout_width="wrap_content"
             android:layout_height="45dp"
-            android:layout_marginLeft="10dp"
             app:backgroundTint="@null"
             android:text="Tạo"
             android:textColor="#0073FF"

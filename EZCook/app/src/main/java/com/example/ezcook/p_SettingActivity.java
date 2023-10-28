@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.ktx.Firebase;
+
 public class p_SettingActivity extends AppCompatActivity {
 
     Button quaylai_btn;
@@ -39,7 +42,9 @@ public class p_SettingActivity extends AppCompatActivity {
         btn_signout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(p_SettingActivity.this, LoginActivity.class));
+                finish();
             }
         });
     }

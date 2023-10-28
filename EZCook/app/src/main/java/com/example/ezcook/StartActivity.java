@@ -73,13 +73,14 @@ public class StartActivity extends AppCompatActivity {
     private void nextActivity(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if(user == null){
-            Intent intent_load = new Intent(StartActivity.this, LoginActivity.class);
+            Intent intent_load = new Intent(this, LoginActivity.class);
             startActivity(intent_load);
-            finish();
+
         }else {
-            Intent intent_load = new Intent(StartActivity.this, MainActivity.class);
+            Intent intent_load = new Intent(this, MainActivity.class);
             startActivity(intent_load);
         }
+        finish();
     }
 
 

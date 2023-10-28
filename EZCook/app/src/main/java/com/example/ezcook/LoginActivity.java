@@ -106,6 +106,8 @@ public class LoginActivity extends AppCompatActivity {
 
                             Intent intent_login_success = new Intent(LoginActivity.this, MainActivity.class);
                             startActivity(intent_login_success);
+                            finishAffinity();
+
                         } else {
                             progressBar_load.setVisibility(View.INVISIBLE);
                             textbtn.setVisibility(View.VISIBLE);

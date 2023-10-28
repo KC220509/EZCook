@@ -1,6 +1,9 @@
 package com.example.ezcook.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Build;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,11 +68,9 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
         if (CATEGORY_SUGGEST == holder.getItemViewType()){
             LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL,false);
             holder.rcvListdata.setLayoutManager(linearLayoutManager);
-//            holder.title_listdata.setText(listdata_model.getTitle_list());
 
             h_category_suggest_adapter categorySuggestAdapter = new h_category_suggest_adapter();
             categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models());
-
             holder.rcvListdata.setAdapter(categorySuggestAdapter);
 
         }else if(CATEGORY_FOODNEW == holder.getItemViewType()){
@@ -93,4 +94,5 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
         }
         return 0;
     }
+
 }

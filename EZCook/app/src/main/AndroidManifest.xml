@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <application
+        android:name=".MyApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -12,6 +13,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EZCook"
         tools:targetApi="31">
+        <service
+            android:name=".fcm.MyFirebaseMessagingService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
 
         <activity
             android:name=".StartActivity"
@@ -59,7 +67,6 @@
             android:name=".fragment.FavoriteFragment"
             android:exported="true">
         </activity>
-
         <activity
             android:name=".fragment.ProfileFragment"
             android:exported="true">
@@ -134,6 +141,10 @@
 
         <activity
             android:name=".p_SettingActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".p_AuthorActivity"
             android:exported="true">
         </activity>
         <meta-data

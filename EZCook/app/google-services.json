@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "66732998265",
+    "project_id": "pushezcook",
+    "storage_bucket": "pushezcook.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:66732998265:android:7b1663889970ef52fc5ea8",
+        "android_client_info": {
+          "package_name": "com.example.ezcook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD7EA-RyTtY9x3j60IrsvYf9LDXIyHPvo4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

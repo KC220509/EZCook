@@ -9,9 +9,9 @@
 
     <Button
         android:id="@+id/quaylai_btn"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="10dp"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="15dp"
         android:layout_marginStart="10dp"
         app:backgroundTint="@null"
         android:background="@drawable/p_quaylai"
@@ -293,6 +293,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/btn_signout"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginTop="5dp"

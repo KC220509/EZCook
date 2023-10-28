@@ -24,6 +24,7 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.p_AdapterViewPager;
+import com.example.ezcook.p_AuthorActivity;
 import com.example.ezcook.p_SettingActivity;
 import com.example.ezcook.p_SettingUserActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -100,6 +101,7 @@ public class ProfileFragment extends Fragment {
         LinearLayout layoutCaNhan = dialog.findViewById(R.id.layoutCaNhan);
         LinearLayout layoutQR = dialog.findViewById(R.id.layoutQR);
         LinearLayout layoutHD = dialog.findViewById(R.id.layoutHD);
+        LinearLayout layoutAuthor = dialog.findViewById(R.id.layoutAuthor);
 
         layoutSetting.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,6 +130,13 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Toast.makeText(mainActivity,"Hoạt động is click",Toast.LENGTH_SHORT).show();
+            }
+        });
+        layoutAuthor.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent myintenSettingUser = new Intent(mainActivity, p_AuthorActivity.class);
+                startActivity(myintenSettingUser);
             }
         });
 

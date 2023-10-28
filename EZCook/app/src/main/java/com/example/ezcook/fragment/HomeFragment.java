@@ -3,10 +3,13 @@ package com.example.ezcook.fragment;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_FOODNEW;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SUGGEST;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,6 +17,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
@@ -22,14 +26,19 @@ import com.example.ezcook.model.h_category_regime_eat_model;
 import com.example.ezcook.model.h_category_suggest_model;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
 import com.example.ezcook.model.h_category_listdata_model;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment {
+
     private MainActivity mainActivity;
 
-    private RecyclerView recyclerViewCategoryData, recyclerViewRegimeEat, recyclerViewCategory_suggest;
+    private RecyclerView recyclerViewRegimeEat, recyclerViewCategoryData, recyclerViewCategory_suggest;
+    private ImageView image_userhome;
+    private TextView name_userhome;
 
 //    private category_list_vertical_adapter categoryListVerticalAdapter;
 
@@ -43,22 +52,19 @@ public class HomeFragment extends Fragment {
         Anhxa(view_home);
         regime_recyclerView();
         category_listdata();
+
+        showUserInfo();
         return view_home;
     }
-
-    //    @Override
-//    protected void onCreate(Bundle savedInstanceState){
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.fragment_home);
-//
-//        Anhxa();
-//        regime_recyclerView();
-//        category_listdata();
-////        Category_listrecyclerview();
-//    }
     private void Anhxa(View view){
+
+        image_userhome = view.findViewById(R.id.image_userhome);
+        name_userhome = view.findViewById(R.id.tv_email_user);
+
         recyclerViewRegimeEat = view.findViewById(R.id.recycler_category_regime_eat);
         recyclerViewCategoryData = view.findViewById(R.id.recycler_category_data);
+
+
 //        recyclerViewCategory_suggest = findViewById(R.id.recycler_category_suggest);
     }
 
@@ -117,6 +123,28 @@ public class HomeFragment extends Fragment {
         return categoryListdataModels;
     }
 
+    private void showUserInfo(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null){
+            return;
+        }
+
+        String name_user = user.getDisplayName();
+        String email_user = user.getEmail();
+        Uri photoUrl = user.getPhotoUrl();
+//
+//        if (name_user == null){
+//            name_userhome.setVisibility(View.GONE);
+//        }
+//        else {
+//            name_userhome.setVisibility(View.VISIBLE);
+//        }
+
+//        name_userhome.setText(name_user);
+        name_userhome.setText(email_user);
+        Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(image_userhome);
+
+    }
 //    private List<category_listdata_model> getCategory_list_verticals(){
 //
 //        List<category_suggest_model> categorySuggestModels = new ArrayList<>();

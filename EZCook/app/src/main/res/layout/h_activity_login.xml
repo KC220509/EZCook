@@ -100,15 +100,17 @@
                     android:id="@+id/text_user"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Tên đăng nhập"
+                    android:hint="Email"
                     android:textColorHint="#7A7474"
                     app:boxStrokeColor="#5E5858"
                     app:hintTextColor="#008758">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_Email"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
-                        android:inputType="text"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
                         android:textColor="#000000"
                         android:textSize="50px" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -137,9 +139,11 @@
                     app:passwordToggleEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/input_Pass"
                         android:layout_width="match_parent"
                         android:layout_height="55dp"
                         android:inputType="textPassword"
+                        android:imeOptions="actionDone"
                         android:textColor="#000000"
                         android:textSize="50px" />
                 </com.google.android.material.textfield.TextInputLayout>
@@ -162,7 +166,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/LinearLayout" />
 
-        <Button
+        <FrameLayout
             android:id="@+id/button_login"
             android:layout_width="340dp"
             android:layout_height="wrap_content"
@@ -170,18 +174,49 @@
             android:layout_marginTop="30dp"
             android:layout_marginEnd="20dp"
             android:background="@drawable/h_edit_button_login_signup"
-            android:fontFamily="sans-serif-medium"
-            android:gravity="center"
-            android:text="Đăng Nhập"
-            android:textColor="#FFF"
-            android:textSize="70px"
-            android:textStyle="bold"
-            app:backgroundTint="@null"
-
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+            app:layout_constraintTop_toBottomOf="@+id/checkBox">
+            <TextView
+                android:id="@+id/text_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Đăng Nhập"
+                android:textColor="#FFF"
+                android:textSize="70px"
+                android:textStyle="bold"
+                android:textAllCaps="true"
+                />
+            <ProgressBar
+                android:id="@+id/progressbar"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:layout_gravity="center"
+                android:indeterminateTint="@color/white"
+                android:visibility="gone"/>
+        </FrameLayout>
+<!--        <Button-->
+<!--            android:id="@+id/button_login"-->
+<!--            android:layout_width="340dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="20dp"-->
+<!--            android:layout_marginTop="30dp"-->
+<!--            android:layout_marginEnd="20dp"-->
+<!--            android:background="@drawable/h_edit_button_login_signup"-->
+<!--            android:fontFamily="sans-serif-medium"-->
+<!--            android:gravity="center"-->
+<!--            android:text="Đăng Nhập"-->
+<!--            android:textColor="#FFF"-->
+<!--            android:textSize="70px"-->
+<!--            android:textStyle="bold"-->
+<!--            app:backgroundTint="@null"-->
+
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="0.5"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/checkBox" />-->
 
         <LinearLayout
             android:id="@+id/LinearLayout2"

@@ -1,8 +1,18 @@
 plugins {
     id("com.android.application")
+    id("com.google.gms.google-services")
 }
 
 android {
+
+    signingConfigs {
+        create("ezcook_config") {
+            storeFile = file("C:\\Users\\ASUS\\ezcook_keystore.jks")
+            storePassword = "21115053120"
+            keyPassword = "21115053120"
+            keyAlias = "ezcook"
+        }
+    }
     namespace = "com.example.ezcook"
     compileSdk = 34
 
@@ -20,6 +30,7 @@ android {
         release {
             isMinifyEnabled = false
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            signingConfig = signingConfigs.getByName("ezcook_config")
         }
     }
     compileOptions {
@@ -30,11 +41,20 @@ android {
 }
 
 dependencies {
+    implementation(platform("com.google.firebase:firebase-bom:32.4.0"))
+    implementation("com.google.firebase:firebase-auth")
+
+    //có thể add hoặc không
+//    implementation("com.google.firebase:firebase-analytics")
+    implementation("com.google.firebase:firebase-messaging")
+
 
     implementation ("androidx.viewpager2:viewpager2:1.0.0")
 
+
     implementation("com.github.bumptech.glide:glide:4.16.0")
-    implementation("androidx.cardview:cardview:1.0.0")
+    implementation ("de.hdodenhof:circleimageview:3.1.0")
+//    implementation("androidx.cardview:cardview:1.0.0")
     implementation("androidx.recyclerview:recyclerview:1.3.2")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")

@@ -2,7 +2,6 @@ package com.example.ezcook.adapter;
 
 import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ezcook.R;
+import com.example.ezcook.f_StepCookActivity;
 import com.example.ezcook.model.h_category_listdata_model;
+import com.example.ezcook.model.h_category_suggest_model;
+import com.example.ezcook.myinterface.i_ClickItemListener_Suggest;
 
 import java.util.List;
 
@@ -70,7 +72,13 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
             holder.rcvListdata.setLayoutManager(linearLayoutManager);
 
             h_category_suggest_adapter categorySuggestAdapter = new h_category_suggest_adapter();
-            categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models());
+//            categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models());
+            categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models(), new i_ClickItemListener_Suggest() {
+                @Override
+                public void onClickItemListener_Suggest(h_category_suggest_model icategorySuggestModel) {
+                    onClickGotoCookSuggest(icategorySuggestModel);
+                }
+            });
             holder.rcvListdata.setAdapter(categorySuggestAdapter);
 
         }else if(CATEGORY_FOODNEW == holder.getItemViewType()){
@@ -87,12 +95,21 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
         }
     }
 
+
     @Override
     public int getItemCount() {
         if(categoryListdataModels != null){
             return categoryListdataModels.size();
         }
         return 0;
+    }
+
+    private void onClickGotoCookSuggest(h_category_suggest_model hCategorySuggestModel) {
+        Intent intent = new Intent(context, f_StepCookActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("stepcook_suggest", hCategorySuggestModel);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
     }
 
 }

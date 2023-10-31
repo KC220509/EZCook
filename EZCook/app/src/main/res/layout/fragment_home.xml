@@ -99,7 +99,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/h_edit_search"
+            android:background="@drawable/h_edit_search_home"
             android:elevation="4dp"
             android:gravity="center"
             android:orientation="horizontal"
@@ -111,6 +111,13 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_question">
 
+<!--            <SearchView-->
+<!--                android:id="@+id/seachview_home"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:queryHint="Tìm kiếm"-->
+<!--                android:searchIcon="@drawable/h_ic_search"-->
+<!--                android:iconifiedByDefault="false"/>-->
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -118,46 +125,37 @@
                 android:padding="2dp"
                 android:src="@drawable/h_ic_search" />
 
-            <EditText
+            <TextView
                 android:id="@+id/edit_search_home"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#F0F0F0"
                 android:fontFamily="@font/quicksand_bold"
                 android:gravity="start|center"
-                android:hint="Tìm kiếm"
-                android:inputType="text"
-                android:maxLength="50"
+                android:text="Tìm kiếm"
                 android:paddingStart="8dp"
-                android:paddingEnd="5dp"
-                android:paddingBottom="1dp"
-                android:textColor="#C8008374"
-                android:textColorHint="#A9008374"
-                android:textSize="50px" />
+                android:textColor="#9C008374"
+                android:textSize="50px"/>
+
+<!--            <androidx.appcompat.widget.SearchView-->
+<!--                android:id="@+id/searchview_home"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:paddingTop="4dp"-->
+<!--                app:queryHint="Tìm kiếm"-->
+<!--                app:searchHintIcon="@null"-->
+<!--                app:queryBackground="@android:color/transparent"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                app:searchIcon="@drawable/h_ic_search"-->
+<!--                app:iconifiedByDefault="true"/>-->
 
             <ImageView
-                android:id="@+id/image_bt_boloc"
+                android:id="@+id/image_bt_filter"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_marginEnd="30dp"
                 android:src="@drawable/h_ic_filter" />
         </LinearLayout>
 
-<!--        <LinearLayout-->
-<!--            android:id="@+id/linear_line"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginStart="70dp"-->
-<!--            android:layout_marginTop="25dp"-->
-<!--            android:layout_marginEnd="70dp"-->
-<!--            app:layout_constraintTop_toBottomOf="@+id/linear_search">-->
-
-<!--            <View-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="1dp"-->
-<!--                android:layout_weight="1"-->
-<!--                android:background="#008758" />-->
-<!--        </LinearLayout>-->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/linear_category_regime_eat"

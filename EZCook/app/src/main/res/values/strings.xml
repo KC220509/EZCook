@@ -5,6 +5,8 @@
     <string name="botom_post">Đăng bài</string>
     <string name="botom_note">Sổ tay</string>
     <string name="botom_profile">Cá nhân</string>
+    
+    <string name="action_seach">Tìm kiếm</string>
 
     <string name="Like_fragment">Like Fragment</string>
     <string name="Save_fragment">Save Fragment</string>

@@ -5,7 +5,8 @@
     android:layout_height="115dp"
     android:layout_margin="10dp"
     android:background="@android:color/transparent"
-    app:cardCornerRadius="18dp">
+    app:cardCornerRadius="18dp"
+    android:id="@+id/itemsave">
 
 
     <androidx.cardview.widget.CardView

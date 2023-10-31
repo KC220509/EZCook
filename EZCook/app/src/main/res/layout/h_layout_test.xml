@@ -89,7 +89,7 @@
             android:layout_marginStart="30dp"
             android:layout_marginTop="15dp"
             android:layout_marginEnd="30dp"
-            android:background="@drawable/h_edit_search"
+            android:background="@drawable/h_edit_search_home"
             android:elevation="4dp"
             android:gravity="center"
             android:orientation="horizontal"

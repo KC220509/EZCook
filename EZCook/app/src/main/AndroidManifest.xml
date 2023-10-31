@@ -90,6 +90,18 @@
             android:exported="true">
         </activity>
 
+        <activity
+            android:name=".h_SearchActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".model.h_category_food_model"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".adapter.h_category_food_adapter"
+            android:exported="true">
+        </activity>
 
         <activity
             android:name=".f_CreateActivity"
@@ -168,7 +180,6 @@
             android:name=".adapter.f_IngredientAdapter_detail"
             android:exported="true">
         </activity>
-
 
 
 

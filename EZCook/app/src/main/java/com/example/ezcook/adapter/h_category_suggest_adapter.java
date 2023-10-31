@@ -1,21 +1,16 @@
 package com.example.ezcook.adapter;
 
 import com.example.ezcook.R;
-import com.example.ezcook.f_StepCookActivity;
-import com.example.ezcook.fragment.HomeFragment;
 import com.example.ezcook.model.h_category_suggest_model;
+import com.example.ezcook.myinterface.i_ClickItemListener_Suggest;
+
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,20 +19,17 @@ import java.util.List;
 public class h_category_suggest_adapter extends RecyclerView.Adapter<h_category_suggest_adapter.viewholder_suggest>{
 
     private List<h_category_suggest_model> category_suggest_list;
+    public i_ClickItemListener_Suggest iClickItemListenerSuggest;
+    public void setData(List<h_category_suggest_model> suggest_list, i_ClickItemListener_Suggest iClickItemListenerSuggest){
 
-
-    public void setData(List<h_category_suggest_model> suggest_list){
         this.category_suggest_list = suggest_list;
+        this.iClickItemListenerSuggest = iClickItemListenerSuggest;
         notifyDataSetChanged();
     }
 
-//    public category_suggest_adapter(List<category_suggest_model> category_suggest_list) {
-//        this.category_suggest_list = category_suggest_list;
-//    }
-
     public class viewholder_suggest extends RecyclerView.ViewHolder{
 
-        private ImageView  category_suggest_pic;
+        private ImageView  category_suggest_pic, category_suggest_picLevel;
         private TextView category_suggest_title, category_suggest_time, category_suggest_kcal;
         private CardView itemsuggest;
         public viewholder_suggest(@NonNull View itemView){
@@ -47,6 +39,7 @@ public class h_category_suggest_adapter extends RecyclerView.Adapter<h_category_
             category_suggest_title = itemView.findViewById(R.id.category_suggest_title);
             category_suggest_time = itemView.findViewById(R.id.category_suggest_time);
             category_suggest_kcal = itemView.findViewById(R.id.category_suggest_kcal);
+            category_suggest_picLevel = itemView.findViewById(R.id.category_suggest_picLevel);
         }
     }
 
@@ -67,17 +60,12 @@ public class h_category_suggest_adapter extends RecyclerView.Adapter<h_category_
         holder.category_suggest_time.setText(categorySuggestModel.getTime());
         holder.category_suggest_pic.setImageResource(categorySuggestModel.getPic());
         holder.category_suggest_kcal.setText(categorySuggestModel.getKcal());
+        holder.category_suggest_picLevel.setImageResource(categorySuggestModel.getPic_level());
 
         holder.itemsuggest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Context context = v.getContext();
-
-                Intent intent = new Intent(context, f_StepCookActivity.class);
-                intent.putExtra("category_image", categorySuggestModel.getPic());
-//                intent.putExtra("category_title", categorySuggestModel.getTitle());
-
-                context.startActivity(intent);
+                iClickItemListenerSuggest.onClickItemListener_Suggest(categorySuggestModel);
             }
         });
     }

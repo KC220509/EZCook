@@ -6,14 +6,20 @@ import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SU
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,6 +29,7 @@ import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
 import com.example.ezcook.f_StepCookActivity;
+import com.example.ezcook.h_SearchActivity;
 import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_regime_eat_model;
 import com.example.ezcook.model.h_category_suggest_model;
@@ -42,6 +49,8 @@ public class HomeFragment extends Fragment {
     private RecyclerView recyclerViewRegimeEat, recyclerViewCategoryData, recyclerViewCategory_suggest;
     private ImageView image_userhome;
     private TextView name_userhome;
+    private LinearLayout action_search;
+    h_category_listdata_adapter categoryListdataAdapter;
 
 //    private category_list_vertical_adapter categoryListVerticalAdapter;
 
@@ -53,6 +62,7 @@ public class HomeFragment extends Fragment {
 
 
         Anhxa(view_home);
+        show_activity_search();
         regime_recyclerView();
         category_listdata();
 
@@ -63,12 +73,22 @@ public class HomeFragment extends Fragment {
 
         image_userhome = view.findViewById(R.id.image_userhome);
         name_userhome = view.findViewById(R.id.tv_email_user);
+        action_search = view.findViewById(R.id.linear_search);
 
         recyclerViewRegimeEat = view.findViewById(R.id.recycler_category_regime_eat);
         recyclerViewCategoryData = view.findViewById(R.id.recycler_category_data);
 
 
 //        recyclerViewCategory_suggest = findViewById(R.id.recycler_category_suggest);
+    }
+    private void show_activity_search(){
+        action_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent_search = new Intent(mainActivity, h_SearchActivity.class);
+                startActivity(intent_search);
+            }
+        });
     }
 
     private void regime_recyclerView(){
@@ -91,7 +111,7 @@ public class HomeFragment extends Fragment {
         recyclerViewCategoryData.setHasFixedSize(true);
         recyclerViewCategoryData.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-        h_category_listdata_adapter categoryListdataAdapter = new h_category_listdata_adapter(mainActivity);
+        categoryListdataAdapter = new h_category_listdata_adapter(mainActivity);
         categoryListdataAdapter.setData(getListData());
 
         recyclerViewCategoryData.setAdapter(categoryListdataAdapter);
@@ -100,10 +120,15 @@ public class HomeFragment extends Fragment {
     private List<h_category_listdata_model> getListData() {
 
         List<h_category_suggest_model> categorySuggestModels = new ArrayList<>();
-        categorySuggestModels.add(new h_category_suggest_model(R.drawable.image_test, "Thịt kho tàu", "20 phút", "300 kcal"));
-        categorySuggestModels.add(new h_category_suggest_model(R.drawable.fast_1, "Tàu hũ nướng", "15 phút", "310 kcal"));
-        categorySuggestModels.add(new h_category_suggest_model(R.drawable.fast_2, "Cơm chiên trứng", "25 phút", "290 kcal"));
-        categorySuggestModels.add(new h_category_suggest_model(R.drawable.fast_3, "Cơm hải sản", "10 phút", "120 kcal"));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.image_test, "Thịt kho tàu", "20 phút", "300 kcal", R.drawable.h_ic_easy));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.fast_1, "Ếch xào sả ớt", "15 phút", "310 kcal",R.drawable.h_ic_medium));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.fast_2, "Cơm chiên trứng", "25 phút", "290 kcal",R.drawable.h_ic_easy));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.fast_3, "Cơm hải sản", "10 phút", "120 kcal",R.drawable.h_ic_difficult));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.cat_1, "Bò hầm", "20 phút", "300 kcal", R.drawable.h_ic_difficult));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.cat_4, "Tàu hũ nướng", "15 phút", "310 kcal",R.drawable.h_ic_medium));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.cat_2, "Humburger", "25 phút", "290 kcal",R.drawable.h_ic_easy));
+        categorySuggestModels.add(new h_category_suggest_model(R.drawable.cat_3, "Mì xào hải sản", "20 phút", "120 kcal",R.drawable.h_ic_easy));
+
 
 
         List<h_category_foodnew_model> categoryFoodnewModels = new ArrayList<>();
@@ -115,13 +140,12 @@ public class HomeFragment extends Fragment {
         categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Thịt kho tàu", "10 phút", "200 kcal", R.drawable.h_ic_user, "Bùi Đức Công"));
         categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_1, "Thịt kho tàu", "30 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
         categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Cơm chiên hải sản", "25 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_3, "Thịt kho tàu", "15 phút", "200 kcal", R.drawable.h_ic_user, "Trần Thị Lê Trinh"));
 
 
         List<h_category_listdata_model> categoryListdataModels = new ArrayList<>();
         categoryListdataModels.add(new h_category_listdata_model(CATEGORY_SUGGEST, "Gợi ý hôm nay", categorySuggestModels, null));
         categoryListdataModels.add(new h_category_listdata_model(CATEGORY_FOODNEW, "Món ăn mới nhất", null, categoryFoodnewModels));
-        categoryListdataModels.add(new h_category_listdata_model(CATEGORY_SUGGEST, "Gợi ý hôm nay", categorySuggestModels, null));
+
 
         return categoryListdataModels;
     }
@@ -148,27 +172,5 @@ public class HomeFragment extends Fragment {
         Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(image_userhome);
 
     }
-//    private List<category_listdata_model> getCategory_list_verticals(){
-//
-//        List<category_suggest_model> categorySuggestModels = new ArrayList<>();
-//        categorySuggestModels.add(new category_suggest_model(R.drawable.image_test, "Thịt kho tàu", "20 phút", "300 kcal"));
-//        categorySuggestModels.add(new category_suggest_model(R.drawable.fast_1, "Tàu hũ nướng", "15 phút", "310 kcal"));
-//        categorySuggestModels.add(new category_suggest_model(R.drawable.fast_2, "Cơm chiên trứng", "25 phút", "290 kcal"));
-//        categorySuggestModels.add(new category_suggest_model(R.drawable.fast_3, "Cơm hải sản", "10 phút", "120 kcal"));
-//        categorySuggestModels.add(new category_suggest_model(R.drawable.fast_3, "Cơm hải sản", "10 phút", "120 kcal"));
-//        categorySuggestModels.add(new category_suggest_model(R.drawable.fast_3, "Cơm hải sản", "10 phút", "120 kcal"));
-//
-//
-//        List<category_listdata_model> categoryListVerticals = new ArrayList<>();
-//        categoryListVerticals.add(new category_listdata_model("Gợi ý hôm nay !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Chế độ ăn !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Món ăn mới nhất !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Gợi ý hôm nay !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Chế độ ăn !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Món ăn mới nhất !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Gợi ý hôm nay !!!", categorySuggestModels));
-//        categoryListVerticals.add(new category_listdata_model("Chế độ ăn !!!", categorySuggestModels));
-//        return categoryListVerticals;
-//
-//    }
+
 }

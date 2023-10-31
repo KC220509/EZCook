@@ -1,5 +1,6 @@
 package com.example.ezcook.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,8 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ezcook.f_StepCookActivity;
 import com.example.ezcook.model.f_Save_model;
 import com.example.ezcook.R;
 
@@ -39,6 +42,9 @@ public class f_SaveAdapter extends RecyclerView.Adapter<f_SaveAdapter.SaveViewHo
         holder.title_Save.setText(saveModel.getTitle());
         holder.time_Save.setText(saveModel.getTime());
         holder.kcal_Save.setText(saveModel.getKcal());
+
+
+        
     }
 
     @Override
@@ -53,10 +59,12 @@ public class f_SaveAdapter extends RecyclerView.Adapter<f_SaveAdapter.SaveViewHo
 
         private ImageView pic_Save;
         private TextView title_Save, time_Save, kcal_Save;
+        private CardView item_save;
 
 
         public SaveViewHolder(@NonNull View itemView) {
             super(itemView);
+            item_save = itemView.findViewById(R.id.itemsave);
 
             pic_Save=itemView.findViewById(R.id.save_pic);
             title_Save=itemView.findViewById(R.id.save_title);

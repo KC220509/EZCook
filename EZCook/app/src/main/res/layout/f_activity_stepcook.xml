@@ -20,13 +20,16 @@
                 android:layout_height="180dp"
                 android:background="@drawable/fast_2"/>
             <Button
+                android:id="@+id/btn_back"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
+                android:layout_marginStart="5dp"
                 android:layout_gravity="top"
                 app:backgroundTint="@null"
                 android:background="@drawable/f_back_white" />
 
             <Button
+                android:id="@+id/btn_share"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="top|right"

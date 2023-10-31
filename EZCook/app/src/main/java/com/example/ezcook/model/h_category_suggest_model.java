@@ -1,16 +1,20 @@
 package com.example.ezcook.model;
 
-public class h_category_suggest_model {
+import java.io.Serializable;
+
+public class h_category_suggest_model implements Serializable {
     private int pic;
     private String title;
     private String time;
     private String kcal;
+    private int pic_level;
 
-    public h_category_suggest_model(int pic, String title, String time, String kcal) {
+    public h_category_suggest_model(int pic, String title, String time, String kcal, int pic_level) {
         this.pic = pic;
         this.title = title;
         this.time = time;
         this.kcal = kcal;
+        this.pic_level = pic_level;
     }
 
     public int getPic() {
@@ -43,5 +47,13 @@ public class h_category_suggest_model {
 
     public void setKcal(String kcal) {
         this.kcal = kcal;
+    }
+
+    public int getPic_level() {
+        return pic_level;
+    }
+
+    public void setPic_level(int pic_level) {
+        this.pic_level = pic_level;
     }
 }

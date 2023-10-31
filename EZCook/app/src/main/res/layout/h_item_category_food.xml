@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
             android:text="4.5"
-            android:textSize="35px"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:textColor="#005950"/>
     </LinearLayout>
@@ -75,7 +75,6 @@
             android:layout_height="55dp"
             android:paddingStart="15dp"
             android:paddingTop="4dp"
-            android:paddingBottom="3dp"
             android:layout_weight="0.5"
             android:orientation="vertical">
             <TextView
@@ -83,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thịt kho tàu"
-                android:textSize="30px"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#005950"/>
             <LinearLayout
@@ -101,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="15 phút"
-                    android:textSize="20px"
+                    android:textSize="8sp"
                     android:textColor="#005950"/>
             </LinearLayout>
             <LinearLayout
@@ -119,7 +118,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="290 kcal"
-                    android:textSize="20px"
+                    android:textSize="8sp"
                     android:textColor="#005950"/>
             </LinearLayout>
         </LinearLayout>

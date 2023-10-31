@@ -112,7 +112,7 @@
                         android:inputType="textEmailAddress"
                         android:imeOptions="actionNext"
                         android:textColor="#000000"
-                        android:textSize="50px" />
+                        android:textSize="18sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -145,7 +145,7 @@
                         android:inputType="textPassword"
                         android:imeOptions="actionDone"
                         android:textColor="#000000"
-                        android:textSize="50px" />
+                        android:textSize="18sp" />
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
 
@@ -185,7 +185,7 @@
                 android:layout_gravity="center"
                 android:text="Đăng Nhập"
                 android:textColor="#FFF"
-                android:textSize="70px"
+                android:textSize="23sp"
                 android:textStyle="bold"
                 android:textAllCaps="true"
                 />
@@ -243,7 +243,7 @@
                 android:text="Đăng Ký Tài Khoản"
                 android:textAlignment="textStart"
                 android:textColor="#00BC7B"
-                android:textSize="40px"
+                android:textSize="15sp"
                 android:textStyle="bold" />
             <Button
                 android:id="@+id/button_fgpass"
@@ -255,7 +255,7 @@
                 android:text="Quên mật khẩu ?"
                 android:textAlignment="textEnd"
                 android:textColor="#7A7474"
-                android:textSize="40px"
+                android:textSize="13sp"
                 android:textAllCaps="false"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -301,7 +301,7 @@
                 android:text="Hoặc"
                 android:textAlignment="center"
                 android:textColor="#008758"
-                android:textSize="40px" />
+                android:textSize="14sp" />
 
             <View
                 android:layout_width="wrap_content"
@@ -342,7 +342,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="Google"
                     android:textColor="#00BC7B"
-                    android:textSize="60px" />
+                    android:textSize="20sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -369,7 +369,7 @@
                     android:fontFamily="sans-serif-medium"
                     android:text="Facebook"
                     android:textColor="#00BC7B"
-                    android:textSize="60px" />
+                    android:textSize="20sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -32,7 +32,7 @@
             android:text="Tạo bộ sưu tập mới"
             android:textColor="@color/black"
             android:textStyle="bold"
-            android:textSize="20dp"
+            android:textSize="20sp"
             />
         <Button
             android:id="@+id/btn_create_collection"
@@ -41,7 +41,7 @@
             app:backgroundTint="@null"
             android:text="Tạo"
             android:textColor="#0073FF"
-            android:textSize="14dp"
+            android:textSize="12sp"
             android:textStyle="bold"
             android:background="@android:color/transparent"
             />
@@ -61,7 +61,7 @@
                     android:text="Bộ sư tập mới"
                     android:textStyle="bold"
                     android:textColor="@color/black"
-                    android:textSize="18dp"
+                    android:textSize="16sp"
                     android:layout_marginLeft="10dp"
                     />
                 <ImageView
@@ -86,13 +86,14 @@
                 android:layout_marginLeft="20dp"
                 android:textColor="@color/black"
                 android:text="Tên bộ sưu tập"
-                android:textSize="16dp"
+                android:textSize="15sp"
                 android:textStyle="bold"/>
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:textSize="16sp"
                 android:hint="Tên bộ sưu tập"
                 android:textColor="@color/black"
                 />
@@ -109,7 +110,7 @@
                 android:text="Chỉ mình tôi"
                 android:textColor="@color/black"
 
-                android:textSize="14dp"
+                android:textSize="14sp"
                 />
             <ImageView
                 android:layout_marginLeft="5dp"

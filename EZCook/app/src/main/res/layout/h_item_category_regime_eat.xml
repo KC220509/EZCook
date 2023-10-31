@@ -34,7 +34,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
         android:text="Ăn sáng"
-        android:textSize="40px"
+        android:textSize="14sp"
         android:gravity="center"
         android:textColor="#5F5F5F"
         app:layout_constraintTop_toBottomOf="@+id/cardview_category_pic"/>

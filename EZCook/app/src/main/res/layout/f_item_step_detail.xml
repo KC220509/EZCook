@@ -9,9 +9,9 @@
         android:id="@+id/f_step_detail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Buoc 1:"
+        android:text="Bước 1:"
         android:textColor="@color/black"
-        android:textSize="18dp"
+        android:textSize="15sp"
         android:textStyle="bold"
         android:layout_marginLeft="10dp"
         />
@@ -22,7 +22,7 @@
         android:text="Chuẩn bị 1 chiếc nồi sạch đổ : 250ml sữa tươi, 250ml sữa đặc, 400ml nước cốt dừa ( 1 lon ) quậy đều tay để các nguyên liệu được hòa với nhau."
         android:layout_marginLeft="10dp"
         android:textColor="@color/black"
-
+        android:textSize="14sp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"/>
 

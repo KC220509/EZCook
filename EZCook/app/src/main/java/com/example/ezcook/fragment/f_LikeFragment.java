@@ -46,17 +46,17 @@ public class f_LikeFragment extends Fragment {
 
     private List<f_Like_model> getListLike(){
         List<f_Like_model> list =new ArrayList<>();
-        list.add(new f_Like_model(R.drawable.thanh_pham, "Sườn rim me", "15 phút", "310 kcal"));
-        list.add(new f_Like_model(R.drawable.thanh_pham_bunbo, "Bún bò", "16 phút", "310 kcal"));
-        list.add(new f_Like_model(R.drawable.thanh_pham_suonrim, "Sườn rim", "17 phút", "300 kcal"));
-        list.add(new f_Like_model(R.drawable.thanh_pham_canhmuopdang, "Canh mướp đắng", "18 phút", "30 kcal"));
-        list.add(new f_Like_model(R.drawable.fast_1, "Thiệt xiên nướng", "19 phút", "100 kcal"));
-        list.add(new f_Like_model(R.drawable.fast_2, "Suon Rim", "23 phút", "300 kcal"));
-        list.add(new f_Like_model(R.drawable.fast_3, "Cá viên chiên", "11 phút", "300 kcal"));
-        list.add(new f_Like_model(R.drawable.thanh_pham_suonrim, "Suon Rim", "15 phút", "300 kcal"));
-        list.add(new f_Like_model(R.drawable.fast_1, "Chả cuốn ram", "15 phút", "300 kcal"));
-        list.add(new f_Like_model(R.drawable.fast_2, "Bánh bèo nướng", "15 phút", "300 kcal"));
-        list.add(new f_Like_model(R.drawable.thanh_pham_canhmuopdang, "Canh mướp đắng", "15 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.thanh_pham, "Sườn rim me", "15 phút", "310 kcal", "12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_bunbo, "Bún bò", "16 phút", "310 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_suonrim, "Sườn rim", "17 phút", "300 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_canhmuopdang, "Canh mướp đắng", "18 phút", "30 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.fast_1, "Thiệt xiên nướng", "19 phút", "100 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.fast_2, "Suon Rim", "23 phút", "300 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.fast_3, "Cá viên chiên", "11 phút", "300 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_suonrim, "Suon Rim", "15 phút", "300 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.fast_1, "Chả cuốn ram", "15 phút", "300 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.fast_2, "Bánh bèo nướng", "15 phút", "300 kcal","12", "123", "1234"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_canhmuopdang, "Canh mướp đắng", "15 phút", "300 kcal","12", "123", "1234"));
 
 
         return list;

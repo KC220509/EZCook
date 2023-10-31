@@ -46,12 +46,13 @@
                     android:fontFamily="@font/quicksand_bold"
                     android:textColor="#00655C"
                     android:text="Thịt kho tàu"
-                    android:textSize="60px" />
+                    android:textSize="20sp" />
 
                 <LinearLayout
-                    android:layout_width="104dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="20dp"
-                    android:layout_marginStart="10dp">
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="15dp">
 
                     <ImageView
                         android:layout_width="20dp"
@@ -60,31 +61,32 @@
 
                     <TextView
                         android:id="@+id/thoigian"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-
+                        android:textSize="10sp"
                         android:fontFamily="@font/quicksand_bold"
                         android:text="15 phút"
                         android:textColor="#8BC34A" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="104dp"
-                    android:layout_height="20dp"
-                    android:layout_marginStart="10dp">
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="15dp">
 
                     <ImageView
                         android:layout_width="20dp"
-                        android:layout_height="match_parent"
+                        android:layout_height="20dp"
                         android:background="@drawable/h_ic_fire" />
 
                     <TextView
                         android:id="@+id/kcal"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginStart="2dp"
-
+                        android:textSize="10sp"
                         android:fontFamily="@font/quicksand_bold"
                         android:text="380 Kcal"
                         android:textColor="#8BC34A" />
@@ -94,13 +96,12 @@
                     android:layout_gravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
+                    android:gravity="center"
                     android:layout_marginTop="5dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
                         app:cardBackgroundColor="#E4E4E4"
                         app:cardCornerRadius="15dp">
 
@@ -123,15 +124,15 @@
                                 android:fontFamily="@font/quicksand_medium"
                                 android:layout_marginStart="3dp"
                                 android:text="12"
-                                android:textSize="40px" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="15dp"
                         app:cardBackgroundColor="#E4E4E4"
                         app:cardCornerRadius="15dp">
 
@@ -154,15 +155,13 @@
                                 android:fontFamily="@font/quicksand_medium"
                                 android:layout_marginStart="3dp"
                                 android:text="123"
-                                android:textSize="40px" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="wrap_content"
                         android:layout_height="30dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="5dp"
                         app:cardBackgroundColor="#E4E4E4"
                         app:cardCornerRadius="15dp">
 
@@ -185,7 +184,7 @@
                                 android:layout_marginStart="3dp"
                                 android:fontFamily="@font/quicksand_medium"
                                 android:text="1234"
-                                android:textSize="40px" />
+                                android:textSize="12sp" />
                         </LinearLayout>
                     </androidx.cardview.widget.CardView>
 

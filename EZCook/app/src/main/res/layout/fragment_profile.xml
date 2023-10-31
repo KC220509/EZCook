@@ -44,7 +44,7 @@
                         android:textColor="#000000"
                         android:paddingBottom="3dp"
                         android:paddingEnd="5dp"
-                        android:textSize="18dp"
+                        android:textSize="16sp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintHorizontal_bias="0.498"
@@ -83,96 +83,102 @@
         android:layout_marginTop="50dp">
         <LinearLayout
             android:id="@+id/linearAVT"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="7dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageUserProfile"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
+                android:padding="5dp"
                 android:src="@drawable/p_avatabep"/>
 
-            <LinearLayout
-                android:layout_width="60dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:text="10"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/quicksand_bold"/>
+           <LinearLayout
+               android:layout_gravity="center"
+               android:gravity="center"
+               android:orientation="horizontal"
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content">
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textAlignment="center"
+                       android:textSize="16sp"
+                       android:text="10"
+                       android:textColor="#000000"
+                       android:fontFamily="@font/quicksand_bold"/>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="38px"
-                    android:textColor="#000000"
-                    android:text="Món ăn"
-                    android:fontFamily="@font/quicksand_bold"/>
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textAlignment="center"
+                       android:textSize="13sp"
+                       android:textColor="#000000"
+                       android:text="Món ăn"
+                       android:fontFamily="@font/quicksand_bold"/>
 
-            </LinearLayout>
+               </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="110dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:text="10000"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/quicksand_bold"/>
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:layout_marginStart="10dp"
+                   android:layout_marginEnd="10dp"
+                   android:orientation="vertical"
+                   android:gravity="center"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textAlignment="center"
+                       android:textSize="16sp"
+                       android:text="10000"
+                       android:textColor="#000000"
+                       android:fontFamily="@font/quicksand_bold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="38px"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:text="Người theo dõi" />
-            </LinearLayout>
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:textColor="#000000"
+                       android:fontFamily="@font/quicksand_bold"
+                       android:text="Người theo dõi" />
+               </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginStart="5dp"
-                android:orientation="vertical"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textSize="20dp"
-                    android:text="35"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/quicksand_bold"/>
+               <LinearLayout
+                   android:layout_width="wrap_content"
+                   android:layout_height="wrap_content"
+                   android:gravity="center"
+                   android:orientation="vertical"
+                   app:layout_constraintStart_toStartOf="parent"
+                   app:layout_constraintTop_toTopOf="parent">
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textAlignment="center"
+                       android:textSize="16sp"
+                       android:text="35"
+                       android:textColor="#000000"
+                       android:fontFamily="@font/quicksand_bold"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="38px"
-                    android:textColor="#000000"
-                    android:fontFamily="@font/quicksand_bold"
-                    android:text="Đang theo dõi" />
-            </LinearLayout>
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:textSize="13sp"
+                       android:textAlignment="center"
+                       android:textColor="#000000"
+                       android:fontFamily="@font/quicksand_bold"
+                       android:text="Đang theo dõi" />
+               </LinearLayout>
+           </LinearLayout>
 
         </LinearLayout>
 
@@ -192,7 +198,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Hoàng Phúc"
                 android:textColor="#000000"
-                android:textSize="25dp"
+                android:textSize="25sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -203,7 +209,7 @@
                 android:fontFamily="@font/quicksand_medium"
                 android:text="Hoangphuc@gmail.com"
                 android:textColor="#000000"
-                android:textSize="50px"
+                android:textSize="17sp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/nameUserProfile" />
@@ -214,14 +220,14 @@
             android:id="@+id/btn_cscanhan"
             android:layout_width="300dp"
             android:layout_height="40dp"
-            android:layout_marginStart="55dp"
+            android:layout_gravity="center"
             android:layout_marginTop="10dp"
             android:background="@drawable/p_edit_background_bt_suatrang"
             android:fontFamily="@font/quicksand_bold"
             android:paddingHorizontal="20dp"
             android:text="Chỉnh sửa trang cá nhân"
             android:textColor="#000000"
-            android:textSize="40px"
+            android:textSize="14sp"
             app:backgroundTint="@null"
             app:layout_collapseMode="parallax"
             app:layout_constraintEnd_toEndOf="parent"

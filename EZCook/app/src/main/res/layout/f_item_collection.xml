@@ -24,7 +24,7 @@
     <LinearLayout
         android:id="@+id/linear_category_suggest"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="55dp"
         android:background="@drawable/h_edit_background_suggest"
         android:elevation="2dp"
         app:cardBackgroundColor="#fff"
@@ -44,7 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Ăn vặt"
-                android:textSize="40px"
+                android:layout_marginTop="2dp"
+                android:textSize="15sp"
                 android:textStyle="bold"
                 android:textColor="#005950"/>
             <LinearLayout
@@ -64,7 +65,7 @@
                     android:layout_marginStart="2dp"
                     android:paddingTop="1dp"
                     android:text="Chỉ mình tôi"
-                    android:textSize="28px"
+                    android:textSize="10sp"
                     android:textColor="#005950"/>
             </LinearLayout>
         </LinearLayout>

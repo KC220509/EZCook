@@ -42,7 +42,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thịt kho tàu"
-                android:textSize="35px"
+                android:textSize="12sp"
                 android:textStyle="bold"
                 android:textColor="#01442D"/>
             <LinearLayout
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="15 phút"
-                    android:textSize="20px"
+                    android:textSize="8sp"
                     android:textColor="#005950"/>
             </LinearLayout>
             <LinearLayout
@@ -80,7 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="290 kcal"
-                    android:textSize="20px"
+                    android:textSize="8sp"
                     android:textColor="#005950"/>
             </LinearLayout>
         </LinearLayout>
@@ -134,7 +134,7 @@
             android:layout_gravity="center"
             android:text="Bùi Đức Công"
             android:textColor="#3B6E69"
-            android:textSize="35px" />
+            android:textSize="13sp" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>

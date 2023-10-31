@@ -40,9 +40,9 @@ public class f_LikeAdapter extends RecyclerView.Adapter<f_LikeAdapter.LikeViewHo
         holder.title_Like.setText(likeModel.getName_model_like());
         holder.time_like.setText(likeModel.getTime_model_like());
         holder.kcal_like.setText(likeModel.getKcal_model_like());
-//        holder.favorite_like.setText(likeModel.getFavorite_model_like());
-//        holder.cmt_like.setText(likeModel.getCmt_model_like());
-//        holder.note_like.setText(likeModel.getNote_model_like());
+        holder.favorite_like.setText(likeModel.getFavorite_model_like());
+        holder.cmt_like.setText(likeModel.getCmt_model_like());
+        holder.note_like.setText(likeModel.getNote_model_like());
 
     }
 
@@ -69,9 +69,9 @@ public class f_LikeAdapter extends RecyclerView.Adapter<f_LikeAdapter.LikeViewHo
             title_Like = itemView.findViewById(R.id.title_like);
             time_like = itemView.findViewById(R.id.time_like);
             kcal_like = itemView.findViewById(R.id.kcal_like);
-//            favorite_like = itemView.findViewById(R.id.sl_favorite_like);
-//            cmt_like = itemView.findViewById(R.id.sl_cmt_save);
-//            note_like = itemView.findViewById(R.id.sl_note_like);
+            favorite_like = itemView.findViewById(R.id.sl_favorite_like);
+            cmt_like = itemView.findViewById(R.id.sl_cmt_like);
+            note_like = itemView.findViewById(R.id.sl_note_like);
 
         }
     }

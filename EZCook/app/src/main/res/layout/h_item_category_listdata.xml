@@ -14,7 +14,7 @@
         android:fontFamily="@font/quicksand_bold"
         android:text="Category 1 !!!"
         android:textColor="#01442D"
-        android:textSize="65px" />
+        android:textSize="21sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_listdata_category"

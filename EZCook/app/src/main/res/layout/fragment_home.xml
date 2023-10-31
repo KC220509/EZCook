@@ -59,7 +59,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Chào, Khánh Công"
                 android:textColor="#003E42"
-                android:textSize="55px" />
+                android:textSize="18sp" />
 
             <ImageView
                 android:layout_width="25dp"
@@ -89,7 +89,7 @@
                 android:fontFamily="@font/quicksand_bold"
                 android:text="Bạn muốn nấu món gì hôm nay ?"
                 android:textColor="#01442D"
-                android:textSize="55px" />
+                android:textSize="18sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -134,7 +134,7 @@
                 android:text="Tìm kiếm"
                 android:paddingStart="8dp"
                 android:textColor="#9C008374"
-                android:textSize="50px"/>
+                android:textSize="14sp"/>
 
 <!--            <androidx.appcompat.widget.SearchView-->
 <!--                android:id="@+id/searchview_home"-->

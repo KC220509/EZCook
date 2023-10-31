@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="160dp"
+    android:layout_width="match_parent"
     android:layout_height="200dp"
     android:layout_margin="10dp"
     android:background="@android:color/transparent"
@@ -57,7 +57,7 @@
                     android:src="@drawable/h_ic_clock"/>
                 <TextView
                     android:id="@+id/category_foodnew_time"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="15 phút"
@@ -76,7 +76,7 @@
                     android:src="@drawable/h_ic_fire"/>
                 <TextView
                     android:id="@+id/category_foodnew_kcal"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="2dp"
                     android:text="290 kcal"
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="163dp"
         android:orientation="horizontal"
-        android:gravity="center"
+        android:gravity="left"
         android:layout_marginStart="5dp"
         android:layout_marginEnd="8dp"
         android:paddingTop="3dp"
@@ -129,9 +129,9 @@
 
         <TextView
             android:id="@+id/category_foodnew_user_title"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="left|center"
+            android:layout_gravity="center"
             android:text="Bùi Đức Công"
             android:textColor="#3B6E69"
             android:textSize="35px" />

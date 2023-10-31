@@ -24,11 +24,6 @@ public class f_LikeFragment extends Fragment {
     private RecyclerView rcvLike;
     private View mviewLike;
 
-    public f_LikeFragment() {
-        // Required empty public constructor
-    }
-
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,17 +46,17 @@ public class f_LikeFragment extends Fragment {
 
     private List<f_Like_model> getListLike(){
         List<f_Like_model> list =new ArrayList<>();
-        list.add(new f_Like_model(R.drawable.cat_1, "Sườn rim me", "15 phút", "310 kcal", "12", "20", "100" ));
-        list.add(new f_Like_model(R.drawable.cat_2, "Chả cuốn", "16 phút", "310 kcal", "13", "210", "1100" ));
-        list.add(new f_Like_model(R.drawable.cat_3, "Cơm rang", "17 phút", "300 kcal", "14", "10", "100" ));
-        list.add(new f_Like_model(R.drawable.cat_4, "Suon Rim", "18 phút", "30 kcal", "15", "60", "1300" ));
-        list.add(new f_Like_model(R.drawable.fast_1, "Suon Rim", "19 phút", "100 kcal", "15", "10", "1400" ));
-        list.add(new f_Like_model(R.drawable.fast_2, "Suon Rim", "23 phút", "300 kcal", "14", "20", "1040" ));
-        list.add(new f_Like_model(R.drawable.fast_3, "Suon Rim", "11 phút", "300 kcal", "13", "14", "180" ));
-        list.add(new f_Like_model(R.drawable.cat_1, "Suon Rim", "15 phút", "300 kcal", "10", "10", "100" ));
-        list.add(new f_Like_model(R.drawable.cat_3, "Suon Rim", "15 phút", "300 kcal", "09", "20", "1020" ));
-        list.add(new f_Like_model(R.drawable.cat_2, "Suon Rim", "15 phút", "300 kcal", "12", "20", "100" ));
-        list.add(new f_Like_model(R.drawable.cat_1, "Suon Rim", "15 phút", "300 kcal", "12", "20", "100" ));
+        list.add(new f_Like_model(R.drawable.thanh_pham, "Sườn rim me", "15 phút", "310 kcal"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_bunbo, "Bún bò", "16 phút", "310 kcal"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_suonrim, "Sườn rim", "17 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_canhmuopdang, "Canh mướp đắng", "18 phút", "30 kcal"));
+        list.add(new f_Like_model(R.drawable.fast_1, "Thiệt xiên nướng", "19 phút", "100 kcal"));
+        list.add(new f_Like_model(R.drawable.fast_2, "Suon Rim", "23 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.fast_3, "Cá viên chiên", "11 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_suonrim, "Suon Rim", "15 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.fast_1, "Chả cuốn ram", "15 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.fast_2, "Bánh bèo nướng", "15 phút", "300 kcal"));
+        list.add(new f_Like_model(R.drawable.thanh_pham_canhmuopdang, "Canh mướp đắng", "15 phút", "300 kcal"));
 
 
         return list;

@@ -82,7 +82,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thịt kho tàu"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="#005950"/>
             <LinearLayout
@@ -128,8 +128,8 @@
             android:orientation="vertical"
             android:gravity="center"
             android:layout_weight="1">
-            <ImageButton
-                android:id="@+id/btn_image_save"
+            <ImageView
+                android:id="@+id/btn_image_save_food"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
                 android:src="@drawable/h_ic_save"

@@ -3,7 +3,9 @@ package com.example.ezcook.fragment;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_FOODNEW;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SUGGEST;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -12,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -25,9 +28,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.ezcook.AnimationUtil;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
+import com.example.ezcook.adapter.h_category_suggest_adapter;
 import com.example.ezcook.f_StepCookActivity;
 import com.example.ezcook.h_SearchActivity;
 import com.example.ezcook.model.h_category_foodnew_model;
@@ -46,13 +51,13 @@ public class HomeFragment extends Fragment {
 
     private MainActivity mainActivity;
 
-    private RecyclerView recyclerViewRegimeEat, recyclerViewCategoryData, recyclerViewCategory_suggest;
+    private RecyclerView recyclerViewRegimeEat, recyclerViewCategoryData;
     private ImageView image_userhome;
     private TextView name_userhome;
     private LinearLayout action_search;
     h_category_listdata_adapter categoryListdataAdapter;
 
-//    private category_list_vertical_adapter categoryListVerticalAdapter;
+    h_category_suggest_adapter categorySuggestAdapter;
 
     @Nullable
     @Override
@@ -72,7 +77,7 @@ public class HomeFragment extends Fragment {
     private void Anhxa(View view){
 
         image_userhome = view.findViewById(R.id.image_userhome);
-        name_userhome = view.findViewById(R.id.tv_email_user);
+        name_userhome = view.findViewById(R.id.tv_name_user);
         action_search = view.findViewById(R.id.linear_search);
 
         recyclerViewRegimeEat = view.findViewById(R.id.recycler_category_regime_eat);
@@ -111,9 +116,10 @@ public class HomeFragment extends Fragment {
         recyclerViewCategoryData.setHasFixedSize(true);
         recyclerViewCategoryData.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-        categoryListdataAdapter = new h_category_listdata_adapter(mainActivity);
-        categoryListdataAdapter.setData(getListData());
+        categoryListdataAdapter = new h_category_listdata_adapter(mainActivity, mainActivity);
 
+        categorySuggestAdapter = new h_category_suggest_adapter();
+        categoryListdataAdapter.setData(getListData());
         recyclerViewCategoryData.setAdapter(categoryListdataAdapter);
     }
 
@@ -149,8 +155,7 @@ public class HomeFragment extends Fragment {
 
         return categoryListdataModels;
     }
-
-    private void showUserInfo(){
+    public void showUserInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null){
             return;
@@ -160,17 +165,22 @@ public class HomeFragment extends Fragment {
         String email_user = user.getEmail();
         Uri photoUrl = user.getPhotoUrl();
 //
-//        if (name_user == null){
+        if (name_user == null){
 //            name_userhome.setVisibility(View.GONE);
-//        }
-//        else {
-//            name_userhome.setVisibility(View.VISIBLE);
-//        }
+            name_userhome.setText(email_user);
+        }
+        else {
+            name_userhome.setVisibility(View.VISIBLE);
+            name_userhome.setText(name_user);
+        }
 
-//        name_userhome.setText(name_user);
-        name_userhome.setText(email_user);
         Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(image_userhome);
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        showUserInfo();
+    }
 }

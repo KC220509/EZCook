@@ -28,14 +28,12 @@
             android:text="Sổ tay của bạn">
 
         </TextView>
-        <Button
-            android:id="@+id/btn_create"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:drawableStart="@drawable/h_bottom_post1"
-            android:gravity="center"
-            app:backgroundTint="@null"
-            android:background="@android:color/transparent"/>
+        <ImageView
+            android:id="@+id/image_btn_create"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/h_bottom_post1"
+            android:gravity="center"/>
     </LinearLayout>
 
     <LinearLayout

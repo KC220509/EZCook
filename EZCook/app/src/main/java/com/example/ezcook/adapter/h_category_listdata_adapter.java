@@ -6,6 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,6 +17,8 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ezcook.AnimationUtil;
+import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.f_StepCookActivity;
 import com.example.ezcook.model.h_category_listdata_model;
@@ -27,9 +33,11 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
     public static final int CATEGORY_FOODNEW = 2;
 
     private List<h_category_listdata_model> categoryListdataModels;
+    MainActivity getmainActivity;
 
-    public h_category_listdata_adapter(Context context) {
+    public h_category_listdata_adapter(Context context, MainActivity mainActivity) {
         this.context = context;
+        this.getmainActivity = mainActivity;
     }
 
     public void setData(List<h_category_listdata_model> categorylistdataModels){
@@ -72,13 +80,35 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
             holder.rcvListdata.setLayoutManager(linearLayoutManager);
 
             h_category_suggest_adapter categorySuggestAdapter = new h_category_suggest_adapter();
-//            categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models());
-            categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models(), new i_ClickItemListener_Suggest() {
-                @Override
-                public void onClickItemListener_Suggest(h_category_suggest_model icategorySuggestModel) {
-                    onClickGotoCookSuggest(icategorySuggestModel);
-                }
-            });
+            categorySuggestAdapter.setData(listdata_model.getCategory_suggest_models()
+                    , new h_category_suggest_adapter.i_ClickAddToSave() {
+                        @Override
+                        public void onClickAddToSave(ImageView imgAddToSave, h_category_suggest_model hCategorySuggestModel) {
+                            AnimationUtil.translateAnimation(getmainActivity.getSaveViewAnimation(), imgAddToSave, getmainActivity.getViewEndAnimation(), new Animation.AnimationListener() {
+
+                                @Override
+                                public void onAnimationStart(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationEnd(Animation animation) {
+
+                                }
+
+                                @Override
+                                public void onAnimationRepeat(Animation animation) {
+
+                                }
+                            });
+                        }
+                    }, new i_ClickItemListener_Suggest() {
+                        @Override
+                        public void onClickItemListener_Suggest(h_category_suggest_model icategorySuggestModel) {
+                            onClickGotoCookSuggest(icategorySuggestModel);
+                        }
+
+                    });
             holder.rcvListdata.setAdapter(categorySuggestAdapter);
 
         }else if(CATEGORY_FOODNEW == holder.getItemViewType()){

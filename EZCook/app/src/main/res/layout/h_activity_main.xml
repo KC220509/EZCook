@@ -25,5 +25,18 @@
         app:itemTextColor="@color/h_color_bottom_navigation"
         app:menu="@menu/h_menu_bottom_navigation">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
-
+    <View
+        android:id="@+id/view_end_animation"
+        android:visibility="invisible"
+        android:layout_width="10dp"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/bottom_navigation"/>
+    <ImageView
+        android:id="@+id/save_view_animation"
+        android:visibility="invisible"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#ccc"/>
 </RelativeLayout>

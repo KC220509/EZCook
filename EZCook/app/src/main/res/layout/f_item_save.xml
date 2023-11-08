@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="115dp"
-    android:layout_margin="10dp"
+    android:layout_margin="8dp"
     android:background="@android:color/transparent"
     app:cardCornerRadius="18dp"
     android:id="@+id/itemsave">
@@ -46,7 +46,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Thịt kho tàu"
-                android:textSize="12sp"
+                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="#005950"/>
             <LinearLayout
@@ -92,7 +92,7 @@
             android:orientation="vertical"
             android:gravity="center|center_vertical"
             android:layout_weight="1">
-            <ImageButton
+            <ImageView
                 android:id="@+id/btn_image_save"
                 android:layout_width="20dp"
                 android:layout_height="20dp"

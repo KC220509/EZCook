@@ -75,10 +75,6 @@ public class LoginActivity extends AppCompatActivity {
         String ipPass =  ip_pass.getText().toString().trim();
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
-
-
-
-
         if (ipEmail.isEmpty() || ipPass.isEmpty()) {
             progressBar_load.setVisibility(View.INVISIBLE);
             textbtn.setVisibility(View.VISIBLE);

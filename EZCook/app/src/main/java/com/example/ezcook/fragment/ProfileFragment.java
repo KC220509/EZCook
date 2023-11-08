@@ -1,36 +1,24 @@
 package com.example.ezcook.fragment;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
+import android.content.SharedPreferences;
 import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultCaller;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -61,7 +49,7 @@ public class ProfileFragment extends Fragment {
 //                    return;
 //                }
 //                Uri uri = intent.getData();
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContext(), uri);
+//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(, uri);
 //
 //            }
 //        }
@@ -75,7 +63,7 @@ public class ProfileFragment extends Fragment {
     private Button bottomsheet;
     private Button btn_cscanhan;
     private ImageView imageuserprofile;
-    private TextView nameuserprofile, emailuserprofile;
+    private TextView idnameuserprofile, nameuserprofile, emailuserprofile;
 
 
     @Nullable
@@ -87,9 +75,12 @@ public class ProfileFragment extends Fragment {
         Anhxa(view_home);
         Action();
         showUserProfileInfo();
+
         return view_home;
     }
     private void Anhxa(View view){
+        idnameuserprofile = view.findViewById(R.id.id_username);
+
         imageuserprofile = view.findViewById(R.id.imageUserProfile);
         nameuserprofile = view.findViewById(R.id.nameUserProfile);
         emailuserprofile = view.findViewById(R.id.emailUserProfile);
@@ -190,7 +181,7 @@ public class ProfileFragment extends Fragment {
         dialog.getWindow().getAttributes().windowAnimations = R.style.DialoAnimation;
         dialog.getWindow().setGravity(Gravity.BOTTOM);
     }
-    private void showUserProfileInfo(){
+    public void showUserProfileInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null){
             return;
@@ -205,12 +196,17 @@ public class ProfileFragment extends Fragment {
         }
         else {
             nameuserprofile.setVisibility(View.VISIBLE);
+            nameuserprofile.setText(name_userprofile);
+            idnameuserprofile.setText(name_userprofile);
         }
-
-        nameuserprofile.setText(name_userprofile);
         emailuserprofile.setText(email_userprofile);
         Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(imageuserprofile);
 
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        showUserProfileInfo();
     }
 
 //    @Override

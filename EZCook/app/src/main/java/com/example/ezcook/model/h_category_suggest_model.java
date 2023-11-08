@@ -8,6 +8,7 @@ public class h_category_suggest_model implements Serializable {
     private String time;
     private String kcal;
     private int pic_level;
+    private boolean isAddToSave;
 
     public h_category_suggest_model(int pic, String title, String time, String kcal, int pic_level) {
         this.pic = pic;
@@ -55,5 +56,13 @@ public class h_category_suggest_model implements Serializable {
 
     public void setPic_level(int pic_level) {
         this.pic_level = pic_level;
+    }
+
+    public boolean isAddToSave() {
+        return isAddToSave;
+    }
+
+    public void setAddToSave(boolean addToSave) {
+        isAddToSave = addToSave;
     }
 }

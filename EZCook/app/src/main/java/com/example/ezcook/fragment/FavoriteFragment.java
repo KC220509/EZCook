@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,7 +24,7 @@ public class FavoriteFragment extends Fragment {
 
     private TabLayout mTabLayout_Favotie;
     private ViewPager mViewPager_Favotie;
-    private Button btn_create;
+    private ImageView im_btn_create;
     private static final int REQUEST_CREATE_ACTIVITY = 1;
 
     @Nullable
@@ -37,13 +38,13 @@ public class FavoriteFragment extends Fragment {
         return view_home;
     }
     private void Anhxa(View view){
-        btn_create = view.findViewById(R.id.btn_create);
+        im_btn_create = view.findViewById(R.id.image_btn_create);
         mTabLayout_Favotie = view.findViewById(R.id.tabLayout_library);
         mViewPager_Favotie = view.findViewById(R.id.viewpager_library);
     }
     private void Action(){
 
-        btn_create.setOnClickListener(new View.OnClickListener() {
+        im_btn_create.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(mainActivity, f_CreateActivity.class);

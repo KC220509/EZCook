@@ -84,9 +84,6 @@ public class SignupActivity extends AppCompatActivity {
         FirebaseAuth auth = FirebaseAuth.getInstance();
 
 
-
-
-
         if (strEmail.isEmpty() || strName.isEmpty() || strPhone.isEmpty() || strPass.isEmpty() || strRepass.isEmpty()) {
             progressBar_load.setVisibility(View.INVISIBLE);
             textbtn.setVisibility(View.VISIBLE);

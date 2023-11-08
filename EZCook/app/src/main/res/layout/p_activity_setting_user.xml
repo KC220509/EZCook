@@ -45,14 +45,9 @@
                 android:layout_height="match_parent"
                 android:src="@drawable/p_avatabep"
                 android:scaleType="centerCrop"/>
-            <Button
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginStart="80dp"
-                android:layout_marginTop="90dp"
-                android:background="@drawable/p_add_img"
-                />
         </androidx.cardview.widget.CardView>
+
+
 
     <LinearLayout
         android:id="@+id/lineargt"
@@ -88,7 +83,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="15dp"
                     android:fontFamily="@font/quicksand_bold"
-                    android:text="Tên"
+                    android:text="Tên người dùng"
                     android:textSize="16sp" />
 
                 <EditText
@@ -96,17 +91,15 @@
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:hint="Hoàng Phúc"
                     android:fontFamily="@font/quicksand_bold"
                     android:textSize="15sp"
-                    android:inputType="text"
-                    android:textColorHint="#000000"/>
+                    android:inputType="text"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="15dp"
-                    android:text="ID EZCook"
+                    android:text="ID EZCook (ID Tĩnh)"
                     android:textSize="16sp"
                     android:fontFamily="@font/quicksand_bold"/>
                 <EditText
@@ -118,6 +111,7 @@
                     android:fontFamily="@font/quicksand_bold"
                     android:textSize="15sp"
                     android:inputType="text"
+                    android:enabled="false"
                     android:textColorHint="#000000"/>
 
 
@@ -151,17 +145,15 @@
                     android:layout_width="325dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="30dp"
-                    android:hint="0866545525"
                     android:fontFamily="@font/quicksand_bold"
                     android:textSize="15sp"
-                    android:inputType="text"
-                    android:textColorHint="#000000"/>
+                    android:inputType="phone"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="15dp"
-                    android:text="Giới Thiệu"
+                    android:text="Giới thiệu"
                     android:textSize="16sp"
                     android:fontFamily="@font/quicksand_bold"/>
 
@@ -186,19 +178,49 @@
         </androidx.cardview.widget.CardView>
 
     </LinearLayout>
-    <Button
+    <FrameLayout
         android:id="@+id/btn_update_profile"
-        android:layout_width="180dp"
-        android:layout_height="40dp"
-        android:layout_marginTop="5dp"
-        app:backgroundTint="@null"
-        android:background="@drawable/p_edit_background_bt_monan"
-        android:layout_gravity="center"
-        android:text="Cập nhật"
-        android:textSize="14sp"
-        android:textColor="#fff"
-        android:fontFamily="@font/quicksand_bold"
-        app:layout_constraintTop_toBottomOf="@id/lineargt"
+        android:layout_width="240dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/h_edit_button_login_signup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+        app:layout_constraintTop_toBottomOf="@+id/lineargt">
+        <TextView
+            android:id="@+id/text_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="Cập nhật"
+            android:textColor="#FFF"
+            android:textSize="23sp"
+            android:textStyle="bold"
+            android:textAllCaps="false"
+            />
+        <ProgressBar
+            android:id="@+id/progressbar"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/white"
+            android:visibility="gone"/>
+    </FrameLayout>
+<!--    <Button-->
+<!--        android:id="@+id/btn_update_profile"-->
+<!--        android:layout_width="180dp"-->
+<!--        android:layout_height="40dp"-->
+<!--        android:layout_marginTop="5dp"-->
+<!--        app:backgroundTint="@null"-->
+<!--        android:background="@drawable/p_edit_background_bt_monan"-->
+<!--        android:layout_gravity="center"-->
+<!--        android:text="Cập nhật"-->
+<!--        android:textSize="14sp"-->
+<!--        android:textColor="#fff"-->
+<!--        android:fontFamily="@font/quicksand_bold"-->
+<!--        app:layout_constraintTop_toBottomOf="@id/lineargt"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"/>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

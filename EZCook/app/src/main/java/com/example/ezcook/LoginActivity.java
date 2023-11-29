@@ -13,12 +13,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
     Button bt_login, bt_signup;
@@ -97,6 +106,21 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
+
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+                            if (user != null) {
+                                // Lấy UID của người dùng
+                                String uid = user.getUid();
+                                String tendangnhap = user.getDisplayName();
+                                // Lấy email của người dùng
+                                String email = user.getEmail();
+
+                                // Lưu UID và email vào cơ sở dữ liệu
+                                saveUidToDatabase(uid, tendangnhap, email);
+                            }
+
+
                             // Sign in success, update UI with the signed-in user's information
                             Toast.makeText(LoginActivity.this, "Chào" + " " + ipEmail, Toast.LENGTH_SHORT).show();
 
@@ -118,5 +142,40 @@ public class LoginActivity extends AppCompatActivity {
     private boolean isEmailValid(String strEmail) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         return strEmail.matches(emailPattern);
+    }
+    private void saveUidToDatabase(String uid, String tendangnhap, String email) {
+        String url = "http://10.0.2.2:8080/DataEzcook/saveUser.php"; // Thay thế đường link thực tế của bạn
+
+        // Tạo một RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        // Tạo một StringRequest để thực hiện POST request
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
+                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi khi thực hiện request
+                        Toast.makeText(LoginActivity.this, "Lỗi khi gửi thông tin đến máy chủ", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", uid);
+                params.put("tendangnhap", tendangnhap);
+                params.put("email", email);
+                return params;
+            }
+        };
+
+        // Thêm request vào hàng đợi
+        requestQueue.add(stringRequest);
     }
 }

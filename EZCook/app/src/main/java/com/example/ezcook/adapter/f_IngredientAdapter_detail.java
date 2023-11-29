@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.ezcook.R;
 import com.example.ezcook.model.f_ingredient_detail;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -36,7 +37,8 @@ public class f_IngredientAdapter_detail extends RecyclerView.Adapter<f_Ingredien
         if (ingredientDetail == null){
             return;
         }
-        holder.img_ingredient.setImageResource(ingredientDetail.getImg_ingredient());
+
+        Picasso.get().load(ingredientDetail.getImg_ingredient()).into(holder.img_ingredient);
         holder.tv_name_ingredient.setText(ingredientDetail.getName_ingredient());
         holder.tv_mass_ingredient.setText(ingredientDetail.getMass_ingredient());
     }

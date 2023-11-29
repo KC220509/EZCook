@@ -4,6 +4,7 @@ package com.example.ezcook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -15,7 +16,14 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.example.ezcook.adapter.h_category_listdata_adapter;
 import com.example.ezcook.fragment.HomeFragment;
 import com.example.ezcook.fragment.ProfileFragment;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,10 +32,15 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class p_SettingUserActivity extends AppCompatActivity {
+    h_category_listdata_adapter categoryListdataAdapter;
     ProfileFragment profileFragment;
     HomeFragment homeFragment;
+    LoginActivity reload;
 
     View view_home;
 
@@ -106,8 +119,18 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(p_SettingUserActivity.this, "Cập nhật trang cá nhân thành công", Toast.LENGTH_SHORT).show();
+                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                        if(user != null){
+                            String updateId = user.getUid();
+                            String updateName = user.getDisplayName();
+                            String updateEmail = user.getEmail();
 
+                            upadteData(updateId, updateName, updateEmail);
+                        }
+
+
+                        Toast.makeText(p_SettingUserActivity.this, "Cập nhật trang cá nhân thành công", Toast.LENGTH_SHORT).show();
+//                        updateData();
                         progressBar_load.setVisibility(View.INVISIBLE);
                         textbtn.setVisibility(View.VISIBLE);
 
@@ -128,7 +151,10 @@ public class p_SettingUserActivity extends AppCompatActivity {
         homeFragment = (HomeFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentHome);
         if(homeFragment != null){
             homeFragment.showUserInfo();
+            homeFragment.getDataFoodnew();
+            homeFragment.onDataUpdated();
         }
+
     }
 
     private void setUserProfileInfomation() {
@@ -143,29 +169,39 @@ public class p_SettingUserActivity extends AppCompatActivity {
         Glide.with(p_SettingUserActivity.this).load(R.drawable.h_account_circle_24).into(imageprofile);
 //        gioithieuprofile.setText(user.get());
     }
-//    private void initListener(){
-//        imageprofile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                mainActivity.onClickRequestPermission();
-//            }
-//        });
-//    }
-//    private void onClickRequestPermission() {
-////        ProfileFragment profileFragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentProfile);
-////        if (profileFragment == null){
-////            return;
-////        }
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M){
-//            this.openGallery();
-//            return;
-//        }
-//        if(this.checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED){
-//            this.openGallery();
-//
-//        }else{
-//            String [] permission = {Manifest.permission.READ_EXTERNAL_STORAGE};
-//            this.requestPermissions(permission, MY_REQUEST_CODE);
-//        }
-//    }
+    private void upadteData(String uid, String tendangnhap, String email) {
+        String url = "http://10.0.2.2:8080/DataEzcook/saveUser.php";
+        // Tạo một RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        // Tạo một StringRequest để thực hiện POST request
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
+                        Toast.makeText(p_SettingUserActivity.this, response, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi khi thực hiện request
+                        Toast.makeText(p_SettingUserActivity.this, "Lỗi khi gửi thông tin đến máy chủ", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", uid);
+                params.put("tendangnhap", tendangnhap);
+                params.put("email", email);
+                return params;
+            }
+        };
+
+        // Thêm request vào hàng đợi
+        requestQueue.add(stringRequest);
+    }
+
 }

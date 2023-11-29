@@ -21,8 +21,11 @@ import com.example.ezcook.AnimationUtil;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.f_StepCookActivity;
+import com.example.ezcook.model.h_category_food_model;
+import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_listdata_model;
 import com.example.ezcook.model.h_category_suggest_model;
+import com.example.ezcook.myinterface.i_ClickItemListener_Foodnew;
 import com.example.ezcook.myinterface.i_ClickItemListener_Suggest;
 
 import java.util.List;
@@ -119,7 +122,12 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
             holder.rcvListdata.setLayoutManager(gridLayoutManager);
 
             h_category_foodnew_adapter categoryFoodnewAdapter = new h_category_foodnew_adapter();
-            categoryFoodnewAdapter.setData(listdata_model.getCategory_foodnew_models());
+            categoryFoodnewAdapter.setData(listdata_model.getCategory_foodnew_models(), new i_ClickItemListener_Foodnew() {
+                @Override
+                public void onClickItemListener_Foodnew(h_category_foodnew_model icategoryFoodnewModel) {
+                    onClickGotoCookFoodnew(icategoryFoodnewModel);
+                }
+            });
 
             holder.rcvListdata.setAdapter(categoryFoodnewAdapter);
         }
@@ -138,6 +146,13 @@ public class h_category_listdata_adapter extends RecyclerView.Adapter<h_category
         Intent intent = new Intent(context, f_StepCookActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("stepcook_suggest", hCategorySuggestModel);
+        intent.putExtras(bundle);
+        context.startActivity(intent);
+    }
+    private void onClickGotoCookFoodnew(h_category_foodnew_model hCategoryFoodnewModel) {
+        Intent intent = new Intent(context, f_StepCookActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("stepcook_foodnew", hCategoryFoodnewModel);
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

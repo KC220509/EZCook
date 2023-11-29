@@ -100,13 +100,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linear_question">
 
-<!--            <SearchView-->
-<!--                android:id="@+id/seachview_home"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:queryHint="Tìm kiếm"-->
-<!--                android:searchIcon="@drawable/h_ic_search"-->
-<!--                android:iconifiedByDefault="false"/>-->
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="30dp"
@@ -124,18 +117,6 @@
                 android:paddingStart="8dp"
                 android:textColor="#9C008374"
                 android:textSize="14sp"/>
-
-<!--            <androidx.appcompat.widget.SearchView-->
-<!--                android:id="@+id/searchview_home"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:paddingTop="4dp"-->
-<!--                app:queryHint="Tìm kiếm"-->
-<!--                app:searchHintIcon="@null"-->
-<!--                app:queryBackground="@android:color/transparent"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                app:searchIcon="@drawable/h_ic_search"-->
-<!--                app:iconifiedByDefault="true"/>-->
 
             <ImageView
                 android:id="@+id/image_bt_filter"
@@ -199,20 +180,5 @@
         </androidx.core.widget.NestedScrollView>
 
 
-            <!-- Các phần tử khác của giao diện ở đây -->
-
-<!--            <com.google.android.material.bottomnavigation.BottomNavigationView-->
-<!--                android:id="@+id/bottom_navigation"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:background="@drawable/background_bottom_navigation"-->
-<!--                android:elevation="10dp"-->
-<!--                app:itemIconTint="@color/color_bottom_navigation"-->
-<!--                app:itemTextColor="@color/color_bottom_navigation"-->
-<!--                app:layout_constraintBottom_toBottomOf="parent"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:menu="@menu/menu_bottom_navigation">-->
-<!--            </com.google.android.material.bottomnavigation.BottomNavigationView>-->
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

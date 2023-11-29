@@ -3,22 +3,17 @@ package com.example.ezcook.fragment;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_FOODNEW;
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SUGGEST;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.ContextMenu;
+import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Animation;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -27,27 +22,42 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.example.ezcook.AnimationUtil;
+import com.example.ezcook.LoginActivity;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
+import com.example.ezcook.adapter.h_category_foodnew_adapter;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
 import com.example.ezcook.adapter.h_category_suggest_adapter;
-import com.example.ezcook.f_StepCookActivity;
 import com.example.ezcook.h_SearchActivity;
 import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_regime_eat_model;
 import com.example.ezcook.model.h_category_suggest_model;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
 import com.example.ezcook.model.h_category_listdata_model;
+import com.example.ezcook.myinterface.i_Update_List;
+import com.example.ezcook.p_SettingUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class HomeFragment extends Fragment {
-
+public class HomeFragment extends Fragment implements i_Update_List {
+    LoginActivity reload;
 
     private MainActivity mainActivity;
 
@@ -55,9 +65,11 @@ public class HomeFragment extends Fragment {
     private ImageView image_userhome;
     private TextView name_userhome;
     private LinearLayout action_search;
+    List<h_category_listdata_model> categoryListdataModels;
     h_category_listdata_adapter categoryListdataAdapter;
 
     h_category_suggest_adapter categorySuggestAdapter;
+    List<h_category_foodnew_model> arrayListFoodNew;
 
     @Nullable
     @Override
@@ -69,13 +81,14 @@ public class HomeFragment extends Fragment {
         Anhxa(view_home);
         show_activity_search();
         regime_recyclerView();
+        getDataFoodnew();
         category_listdata();
-
         showUserInfo();
         return view_home;
     }
-    private void Anhxa(View view){
 
+
+    private void Anhxa(View view){
         image_userhome = view.findViewById(R.id.image_userhome);
         name_userhome = view.findViewById(R.id.tv_name_user);
         action_search = view.findViewById(R.id.linear_search);
@@ -83,9 +96,12 @@ public class HomeFragment extends Fragment {
         recyclerViewRegimeEat = view.findViewById(R.id.recycler_category_regime_eat);
         recyclerViewCategoryData = view.findViewById(R.id.recycler_category_data);
 
+        arrayListFoodNew = new ArrayList<>();
+        categoryListdataAdapter = new h_category_listdata_adapter(mainActivity, mainActivity);
 
 //        recyclerViewCategory_suggest = findViewById(R.id.recycler_category_suggest);
     }
+
     private void show_activity_search(){
         action_search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,17 +128,55 @@ public class HomeFragment extends Fragment {
         categoryRegimeEatAdapter.setData(categoryRegimeEatModels);
         recyclerViewRegimeEat.setAdapter(categoryRegimeEatAdapter);
     }
-    private void category_listdata(){
+    public void category_listdata(){
         recyclerViewCategoryData.setHasFixedSize(true);
         recyclerViewCategoryData.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-        categoryListdataAdapter = new h_category_listdata_adapter(mainActivity, mainActivity);
+
 
         categorySuggestAdapter = new h_category_suggest_adapter();
         categoryListdataAdapter.setData(getListData());
         recyclerViewCategoryData.setAdapter(categoryListdataAdapter);
     }
+    public void getDataFoodnew(){
+        final String url = "http://10.0.2.2:8080/DataEzcook/getDataFoodnew.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(mainActivity);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i=0;i< response.length();i++){
+                            try {
+                                JSONObject Object = response.getJSONObject(i);
+                                String masp = Object.getString("MASP");
+                                String hinhanh = Object.getString("HINHANH");
+                                String title = Object.getString("TIEUDE");
+                                int time = Object.getInt("TIME");
+                                int kcal = Object.getInt("KCAL");
+                                String avt = Object.getString("AVT");
+                                String name = Object.getString("TENDANGNHAP");
+                                h_category_foodnew_model newFood = new h_category_foodnew_model(masp, hinhanh, title, time + " phút", kcal + " kcal", avt, name);
 
+                                arrayListFoodNew.add(newFood);
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                        }
+                        categoryListdataAdapter.notifyDataSetChanged();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                        Toast.makeText(mainActivity, "Lỗi", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonArrayRequest);
+    }
     private List<h_category_listdata_model> getListData() {
 
         List<h_category_suggest_model> categorySuggestModels = new ArrayList<>();
@@ -137,24 +191,16 @@ public class HomeFragment extends Fragment {
 
 
 
-        List<h_category_foodnew_model> categoryFoodnewModels = new ArrayList<>();
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Thịt kho tàu", "10 phút", "200 kcal", R.drawable.h_ic_user, "Bùi Đức Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_1, "Cơm chiên trứng", "30 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Cơm chiên hải sản", "25 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_3, "Thịt kho tàu", "15 phút", "200 kcal", R.drawable.h_ic_user, "Trần Thị Lê Trinh"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.image_test, "Thịt kho", "20 phút", "200 kcal", R.drawable.cat_4, "Khánh Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Thịt kho tàu", "10 phút", "200 kcal", R.drawable.h_ic_user, "Bùi Đức Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_1, "Thịt kho tàu", "30 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
-        categoryFoodnewModels.add(new h_category_foodnew_model(R.drawable.fast_2, "Cơm chiên hải sản", "25 phút", "200 kcal", R.drawable.h_ic_user, "Khánh Công"));
 
-
-        List<h_category_listdata_model> categoryListdataModels = new ArrayList<>();
+        categoryListdataModels = new ArrayList<>();
         categoryListdataModels.add(new h_category_listdata_model(CATEGORY_SUGGEST, "Gợi ý hôm nay", categorySuggestModels, null));
-        categoryListdataModels.add(new h_category_listdata_model(CATEGORY_FOODNEW, "Món ăn mới nhất", null, categoryFoodnewModels));
+//        categoryListdataModels.add(new h_category_listdata_model(CATEGORY_FOODNEW, "Món ăn mới nhất", null, categoryFoodnewModels));
 
+        categoryListdataModels.add(new h_category_listdata_model(CATEGORY_FOODNEW, "Món ăn mới nhất", null, arrayListFoodNew));
 
         return categoryListdataModels;
     }
+
     public void showUserInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         if (user == null){
@@ -178,9 +224,17 @@ public class HomeFragment extends Fragment {
 
     }
 
+
     @Override
     public void onResume() {
         super.onResume();
         showUserInfo();
+    }
+    @Override
+    public void onDataUpdated() {
+        // Gọi phương thức để cập nhật dữ liệu trong Adapter
+        getDataFoodnew();
+        categoryListdataAdapter.setData(getListData());
+
     }
 }

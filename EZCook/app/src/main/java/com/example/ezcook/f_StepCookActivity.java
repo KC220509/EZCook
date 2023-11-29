@@ -13,21 +13,35 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.ezcook.adapter.f_ListDataAdapter_detail;
 import com.example.ezcook.model.f_ListData_detail;
 import com.example.ezcook.model.f_Step_detail;
 import com.example.ezcook.model.f_ingredient_detail;
 import com.example.ezcook.model.h_category_food_model;
+import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_suggest_model;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 
 public class f_StepCookActivity extends AppCompatActivity {
@@ -37,6 +51,10 @@ public class f_StepCookActivity extends AppCompatActivity {
     private f_ListDataAdapter_detail listDataDetail;
     private ImageView imagedetail;
     private TextView titledetail;
+    List<f_ListData_detail> listDataDetails;
+
+    List<f_ingredient_detail> listIng;
+    String idsp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +62,7 @@ public class f_StepCookActivity extends AppCompatActivity {
         setContentView(R.layout.f_activity_stepcook);
 
         Anhxa();
+        getDataNguyenlieu();
         Action();
 
 
@@ -53,12 +72,15 @@ public class f_StepCookActivity extends AppCompatActivity {
             rcv_detail= findViewById(R.id.rcv_f_detail);
             imagedetail = findViewById(R.id.image_detail);
             titledetail = findViewById(R.id.title_detail);
+
+            listIng = new ArrayList<>();
+            listDataDetail = new f_ListDataAdapter_detail();
         }
         private void Action(){
             LinearLayoutManager linearLayoutManager =new LinearLayoutManager(this);
             rcv_detail.setLayoutManager(linearLayoutManager);
 
-            listDataDetail = new f_ListDataAdapter_detail();
+
             listDataDetail.setData(this , getList_DetailData());
             rcv_detail.setAdapter(listDataDetail);
 
@@ -80,18 +102,20 @@ public class f_StepCookActivity extends AppCompatActivity {
                     h_category_food_model hCategoryFoodModel = (h_category_food_model) bundle.get("stepcook_food");
                     imagedetail.setImageResource(hCategoryFoodModel.getPic_food());
                     titledetail.setText(hCategoryFoodModel.getTitle_food());
+                } else if (bundle.containsKey("stepcook_foodnew")) {
+                    h_category_foodnew_model hCategoryFoodnewModel = (h_category_foodnew_model) bundle.get("stepcook_foodnew");
+                    idsp = hCategoryFoodnewModel.getId();
+                    Picasso.get().load(hCategoryFoodnewModel.getPic()).into(imagedetail);
+                    titledetail.setText(hCategoryFoodnewModel.getTitle());
+
+
                 }
             }
 
         }
     private List<f_ListData_detail> getList_DetailData() {
-        List<f_ListData_detail> listDataDetails = new ArrayList<>();
 
-        List<f_ingredient_detail> listIng = new ArrayList<>();
-        listIng.add(new f_ingredient_detail(R.drawable.fast_1,"Thit heo","500g"));
-        listIng.add(new f_ingredient_detail(R.drawable.fast_2,"Thit heo","500g"));
-        listIng.add(new f_ingredient_detail(R.drawable.fast_3,"Thit heo","500g"));
-        listIng.add(new f_ingredient_detail(R.drawable.fast_3,"Thit heo","500g"));
+
 
         List<f_Step_detail> listStep = new ArrayList<>();
         listStep.add(new f_Step_detail("Buoc 1","Chuẩn bị 1 chiếc nồi sạch đổ : 250ml sữa tươi, 250ml sữa đặc, 400ml nước cốt dừa ( 1 lon ) quậy đều tay để các nguyên liệu được hòa với nhau."));
@@ -101,11 +125,49 @@ public class f_StepCookActivity extends AppCompatActivity {
         listStep.add(new f_Step_detail("Buoc 5"," Đổ 50ml sữa còn lại vào 25gr bột ngô để bột ngô được hòa tan và tiếp tục đổ vào nồi hỗn hợp."));
         listStep.add(new f_Step_detail("Buoc 6","Khi nồi hỗn hợp sôi lục bục ta tắt bếp và để nguội mới đổ vào khuôn kem ."));
 
-        listDataDetails.add(new f_ListData_detail(Type_ingredient, "Nguyên liệu",listIng,null));
+
+        listDataDetails = new ArrayList<>();
+        listDataDetails.add(new f_ListData_detail(Type_ingredient, "Nguyên liệu", listIng,null));
         listDataDetails.add(new f_ListData_detail(Type_Step,"Cách làm",null,listStep));
 
 
         return listDataDetails;
+    }
+    private void getDataNguyenlieu(){
+        final String url = "http://10.0.2.2:8080/DataEzcook/getNguyenlieu.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i=0;i< response.length();i++){
+                            try {
+                                JSONObject Object = response.getJSONObject(i);
+                                String tengnuyenlieu = Object.getString("TENNGUYENLIEU");
+                                String hinhanhnl = Object.getString("HINHANHNL");
+                                int trongluong = Object.getInt("TRONGLUONG");
+                                String masp = Object.getString("MASP");
+                                if(masp.equals(idsp)){
+                                    f_ingredient_detail ingredient_detail = new f_ingredient_detail(hinhanhnl, tengnuyenlieu, trongluong + " gam");
+                                    listIng.add(ingredient_detail);
+                                }
+
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                        }
+                        listDataDetail.notifyDataSetChanged();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                        Toast.makeText(f_StepCookActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                    }
+                });
+        requestQueue.add(jsonArrayRequest);
     }
 
 }

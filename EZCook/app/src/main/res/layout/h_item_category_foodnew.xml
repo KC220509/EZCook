@@ -5,9 +5,16 @@
     android:layout_height="200dp"
     android:layout_margin="10dp"
     android:background="@android:color/transparent"
-    app:cardCornerRadius="18dp">
+    app:cardCornerRadius="18dp"
+    android:id="@+id/item_foodnew">
 
-
+    <TextView
+        android:id="@+id/category_foodnew_masp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:text=""
+        android:visibility="gone"
+        />
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview_category_foodnew_pic"
         android:layout_width="match_parent"

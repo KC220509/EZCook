@@ -1,14 +1,18 @@
 package com.example.ezcook.model;
 
-public class h_category_foodnew_model {
-    private int pic;
+import java.io.Serializable;
+
+public class h_category_foodnew_model implements Serializable {
+    private String id;
+    private String pic;
     private String title;
     private String time;
     private String kcal;
-    private int pic_user;
+    private String pic_user;
     private String title_user;
 
-    public h_category_foodnew_model(int pic, String title, String time, String kcal, int pic_user, String title_user) {
+    public h_category_foodnew_model(String id, String pic, String title, String time, String kcal, String pic_user, String title_user) {
+        this.id = id;
         this.pic = pic;
         this.title = title;
         this.time = time;
@@ -17,11 +21,19 @@ public class h_category_foodnew_model {
         this.title_user = title_user;
     }
 
-    public int getPic() {
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getPic() {
         return pic;
     }
 
-    public void setPic(int pic) {
+    public void setPic(String pic) {
         this.pic = pic;
     }
 
@@ -49,11 +61,11 @@ public class h_category_foodnew_model {
         this.kcal = kcal;
     }
 
-    public int getPic_user() {
+    public String getPic_user() {
         return pic_user;
     }
 
-    public void setPic_user(int pic_user) {
+    public void setPic_user(String pic_user) {
         this.pic_user = pic_user;
     }
 

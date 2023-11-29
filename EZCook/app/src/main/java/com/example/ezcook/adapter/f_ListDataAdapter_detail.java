@@ -80,9 +80,6 @@ public class f_ListDataAdapter_detail extends RecyclerView.Adapter<f_ListDataAda
             holder.rcvItem_detail.setAdapter(stepAdapterDetail);
         }
 
-
-
-
     }
 
     @Override

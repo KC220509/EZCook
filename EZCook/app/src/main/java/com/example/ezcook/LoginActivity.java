@@ -1,8 +1,10 @@
 package com.example.ezcook;
 
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.format.Formatter;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -45,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
 
         Action();
     }
+
     private void Anhxa(){
         ip_email = findViewById(R.id.input_Email);
         ip_pass = findViewById(R.id.input_Pass);
@@ -144,8 +147,8 @@ public class LoginActivity extends AppCompatActivity {
         return strEmail.matches(emailPattern);
     }
     private void saveUidToDatabase(String uid, String tendangnhap, String email) {
-        String url = "http://10.0.2.2:8080/DataEzcook/saveUser.php"; // Thay thế đường link thực tế của bạn
-
+        String url = "https://kcfullstack.000webhostapp.com/saveUser.php";
+//        final String url = "http://192.168.1.167:8080/DataEzcook/saveUser.php";
         // Tạo một RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 

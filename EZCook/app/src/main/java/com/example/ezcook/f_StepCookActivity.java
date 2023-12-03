@@ -1,13 +1,14 @@
 package com.example.ezcook;
 
 
-
 import static com.example.ezcook.adapter.f_ListDataAdapter_detail.Type_Step;
 import static com.example.ezcook.adapter.f_ListDataAdapter_detail.Type_ingredient;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.text.format.Formatter;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -55,12 +56,10 @@ public class f_StepCookActivity extends AppCompatActivity {
 
     List<f_ingredient_detail> listIng;
     String idsp;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.f_activity_stepcook);
-
         Anhxa();
         getDataNguyenlieu();
         Action();
@@ -134,7 +133,8 @@ public class f_StepCookActivity extends AppCompatActivity {
         return listDataDetails;
     }
     private void getDataNguyenlieu(){
-        final String url = "http://10.0.2.2:8080/DataEzcook/getNguyenlieu.php";
+        final String url = "https://kcfullstack.000webhostapp.com/getNguyenlieu.php";
+//        final String url = "http://192.168.1.167:8080/DataEzcook/getNguyenlieu.php";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -164,7 +164,7 @@ public class f_StepCookActivity extends AppCompatActivity {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("VolleyError", error.toString());
-                        Toast.makeText(f_StepCookActivity.this, "Lỗi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(f_StepCookActivity.this, "Lỗi dữ liệu", Toast.LENGTH_SHORT).show();
                     }
                 });
         requestQueue.add(jsonArrayRequest);

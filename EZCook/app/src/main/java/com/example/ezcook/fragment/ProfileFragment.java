@@ -8,6 +8,8 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +27,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
@@ -36,6 +44,11 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
 //    public static final int MY_REQUEST_CODE = 10;
@@ -183,24 +196,47 @@ public class ProfileFragment extends Fragment {
     }
     public void showUserProfileInfo(){
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null){
+        if(user == null){
             return;
         }
+        final String url = "https://kcfullstack.000webhostapp.com/getDataUser.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(mainActivity);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i=0;i< response.length();i++){
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                String uid = object.getString("UID");
+                                String nameprofile = object.getString("TENDANGNHAP");
+                                String emailprofile = object.getString("EMAIL");
+                                String avt = object.getString("AVT");
+                                if (uid.equals(user.getUid())) {
+                                    idnameuserprofile.setText(nameprofile);
+                                    nameuserprofile.setText(nameprofile);
+                                    emailuserprofile.setText(emailprofile);
+                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
+                                        avt = String.valueOf(R.drawable.h_ic_user);
+                                    }
+                                    Picasso.get().load(avt).into(imageuserprofile);
+                                }
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
 
-        String name_userprofile = user.getDisplayName();
-        String email_userprofile = user.getEmail();
-        Uri photoUrl = user.getPhotoUrl();
-//
-        if (name_userprofile == null){
-            nameuserprofile.setVisibility(View.GONE);
-        }
-        else {
-            nameuserprofile.setVisibility(View.VISIBLE);
-            nameuserprofile.setText(name_userprofile);
-            idnameuserprofile.setText(name_userprofile);
-        }
-        emailuserprofile.setText(email_userprofile);
-        Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(imageuserprofile);
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                        Toast.makeText(mainActivity, "Lỗi truy cập đường dẫn !", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonArrayRequest);
 
     }
     @Override

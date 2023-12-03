@@ -3,10 +3,13 @@ package com.example.ezcook;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,17 +23,27 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
 import com.example.ezcook.fragment.HomeFragment;
 import com.example.ezcook.fragment.ProfileFragment;
+import com.example.ezcook.model.h_category_foodnew_model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.PhoneAuthCredential;
+import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
+import com.squareup.picasso.Picasso;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -87,13 +100,13 @@ public class p_SettingUserActivity extends AppCompatActivity {
 
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClick(View view) {
                 progressBar_load.setVisibility(View.VISIBLE);
                 textbtn.setVisibility(View.GONE);
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-
+//                        updatePhone();
                         onClickUpdateProfile();
                     }
                 },1000);
@@ -108,7 +121,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
             return;
         }
         String strName = nameprofile.getText().toString().trim();
-//        String phone = phoneprofile.getText().toString().trim();
 
         UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
                 .setDisplayName(strName)
@@ -119,18 +131,8 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                        if(user != null){
-                            String updateId = user.getUid();
-                            String updateName = user.getDisplayName();
-                            String updateEmail = user.getEmail();
 
-                            upadteData(updateId, updateName, updateEmail);
-                        }
-
-
-                        Toast.makeText(p_SettingUserActivity.this, "Cập nhật trang cá nhân thành công", Toast.LENGTH_SHORT).show();
-//                        updateData();
+                        upadteData();
                         progressBar_load.setVisibility(View.INVISIBLE);
                         textbtn.setVisibility(View.VISIBLE);
 
@@ -140,7 +142,33 @@ public class p_SettingUserActivity extends AppCompatActivity {
                     }
                 }
             });
+
     }
+//    private void updatePhone(){
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        if (user == null){
+//            return;
+//        }
+//        String phone = "84" + phoneprofile.getText().toString().trim();
+//        PhoneAuthCredential addphone = PhoneAuthProvider.getCredential(null, phone);
+//
+//        user.updatePhoneNumber(addphone).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()) {
+//
+//                } else {
+//                    // Lỗi thêm số điện thoại
+//                    Exception e = task.getException();
+//                    if (e instanceof FirebaseAuthInvalidCredentialsException) {
+//                        // Định dạng số điện thoại không hợp lệ
+//                        Toast.makeText(p_SettingUserActivity.this, "Định dạng số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
+//                    }
+//                }
+//            }
+//        });
+//    }
 
     private void updateUsernameInFragmentProfile() {
         profileFragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentProfile);
@@ -152,25 +180,73 @@ public class p_SettingUserActivity extends AppCompatActivity {
         if(homeFragment != null){
             homeFragment.showUserInfo();
             homeFragment.getDataFoodnew();
-            homeFragment.onDataUpdated();
+            homeFragment.category_listdata();
+//            homeFragment.onResume();
         }
 
     }
-
     private void setUserProfileInfomation() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if(user == null){
-            return;
-        }
-        nameprofile.setText(user.getDisplayName());
-        idprofile.setText(user.getUid());
-        emailprofile.setText(user.getEmail());
-        phoneprofile.setText(user.getPhoneNumber());
-        Glide.with(p_SettingUserActivity.this).load(R.drawable.h_account_circle_24).into(imageprofile);
-//        gioithieuprofile.setText(user.get());
+
+
+        // Lấy dữ liệu từ URL sử dụng Volley
+        final String url = "https://kcfullstack.000webhostapp.com/getDataUser.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(p_SettingUserActivity.this);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i=0;i< response.length();i++){
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                String uid = object.getString("UID");
+                                String tendangnhap = object.getString("TENDANGNHAP");
+                                String email = object.getString("EMAIL");
+                                String phoneNumber = object.getString("PHONE");
+                                String avt = object.getString("AVT");
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (uid.equals(user.getUid())) {
+                                    idprofile.setText(uid);
+                                    nameprofile.setText(tendangnhap);
+                                    emailprofile.setText(email);
+                                    phoneprofile.setText(phoneNumber);
+                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
+                                        avt = String.valueOf(R.drawable.h_ic_user);
+                                    }
+                                    Picasso.get().load(avt).into(imageprofile);
+                                }
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
+
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                        Toast.makeText(p_SettingUserActivity.this, "Lỗi truy cập đường dẫn !", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        requestQueue.add(jsonArrayRequest);
     }
-    private void upadteData(String uid, String tendangnhap, String email) {
-        String url = "http://10.0.2.2:8080/DataEzcook/saveUser.php";
+
+//    private void setUserProfileInfomation() {
+//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+//        if(user == null){
+//            return;
+//        }
+//        nameprofile.setText(user.getDisplayName());
+//        idprofile.setText(user.getUid());
+//        emailprofile.setText(user.getEmail());
+//        phoneprofile.setText(user.getPhoneNumber());
+//        Glide.with(p_SettingUserActivity.this).load(R.drawable.h_account_circle_24).into(imageprofile);
+////        gioithieuprofile.setText(user.get());
+//    }
+    private void upadteData() {
+//        final String url = "http://192.168.1.167:8080/DataEzcook/updateUser.php";
+        String url = "https://kcfullstack.000webhostapp.com/updateUser.php";
         // Tạo một RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -180,7 +256,12 @@ public class p_SettingUserActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
-                        Toast.makeText(p_SettingUserActivity.this, response, Toast.LENGTH_SHORT).show();
+                        if(response.trim().equals("success")){
+                            Toast.makeText(p_SettingUserActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(p_SettingUserActivity.this, "Cập nhật không thành công", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 },
                 new Response.ErrorListener() {
@@ -193,9 +274,8 @@ public class p_SettingUserActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("uid", uid);
-                params.put("tendangnhap", tendangnhap);
-                params.put("email", email);
+                params.put("uid", idprofile.getText().toString().trim());
+                params.put("tendangnhap", nameprofile.getText().toString().trim());
                 return params;
             }
         };

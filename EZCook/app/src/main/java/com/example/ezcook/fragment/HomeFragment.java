@@ -6,6 +6,7 @@ import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SU
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -26,7 +26,6 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
-import com.android.volley.VolleyLog;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
@@ -42,21 +41,19 @@ import com.example.ezcook.model.h_category_regime_eat_model;
 import com.example.ezcook.model.h_category_suggest_model;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
 import com.example.ezcook.model.h_category_listdata_model;
-import com.example.ezcook.myinterface.i_Update_List;
 import com.example.ezcook.p_SettingUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-public class HomeFragment extends Fragment implements i_Update_List {
+public class HomeFragment extends Fragment{
     LoginActivity reload;
 
     private MainActivity mainActivity;
@@ -70,13 +67,13 @@ public class HomeFragment extends Fragment implements i_Update_List {
 
     h_category_suggest_adapter categorySuggestAdapter;
     List<h_category_foodnew_model> arrayListFoodNew;
+    h_category_foodnew_adapter hCategoryFoodnewAdapter;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view_home = inflater.inflate(R.layout.fragment_home, container, false);
         mainActivity = (MainActivity) getActivity();
-
 
         Anhxa(view_home);
         show_activity_search();
@@ -86,7 +83,6 @@ public class HomeFragment extends Fragment implements i_Update_List {
         showUserInfo();
         return view_home;
     }
-
 
     private void Anhxa(View view){
         image_userhome = view.findViewById(R.id.image_userhome);
@@ -139,7 +135,8 @@ public class HomeFragment extends Fragment implements i_Update_List {
         recyclerViewCategoryData.setAdapter(categoryListdataAdapter);
     }
     public void getDataFoodnew(){
-        final String url = "http://10.0.2.2:8080/DataEzcook/getDataFoodnew.php";
+//        final String url = "http://192.168.1.167:8080/DataEzcook/getDataFoodnew.php";
+        final String url = "https://kcfullstack.000webhostapp.com/getDataFoodnew.php";
         RequestQueue requestQueue = Volley.newRequestQueue(mainActivity);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
                 new Response.Listener<JSONArray>() {
@@ -171,12 +168,14 @@ public class HomeFragment extends Fragment implements i_Update_List {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e("VolleyError", error.toString());
-                        Toast.makeText(mainActivity, "Lỗi", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mainActivity, "Lỗi truy cập đường dẫn !", Toast.LENGTH_SHORT).show();
                     }
                 });
 
         requestQueue.add(jsonArrayRequest);
     }
+
+
     private List<h_category_listdata_model> getListData() {
 
         List<h_category_suggest_model> categorySuggestModels = new ArrayList<>();
@@ -202,26 +201,42 @@ public class HomeFragment extends Fragment implements i_Update_List {
     }
 
     public void showUserInfo(){
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null){
-            return;
-        }
+        final String url = "https://kcfullstack.000webhostapp.com/getDataUser.php";
+        RequestQueue requestQueue = Volley.newRequestQueue(mainActivity);
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        for(int i=0;i< response.length();i++){
+                            try {
+                                JSONObject object = response.getJSONObject(i);
+                                String uid = object.getString("UID");
+                                String nameuser = object.getString("TENDANGNHAP");
+                                String avt = object.getString("AVT");
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (uid.equals(user.getUid())) {
+                                    name_userhome.setText(nameuser);
+                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
+                                        avt = String.valueOf(R.drawable.h_ic_user);
+                                    }
+                                    Picasso.get().load(avt).into(image_userhome);
+                                }
+                            } catch (JSONException e) {
+                                throw new RuntimeException(e);
+                            }
 
-        String name_user = user.getDisplayName();
-        String email_user = user.getEmail();
-        Uri photoUrl = user.getPhotoUrl();
-//
-        if (name_user == null){
-//            name_userhome.setVisibility(View.GONE);
-            name_userhome.setText(email_user);
-        }
-        else {
-            name_userhome.setVisibility(View.VISIBLE);
-            name_userhome.setText(name_user);
-        }
+                        }
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e("VolleyError", error.toString());
+                        Toast.makeText(mainActivity, "Lỗi truy cập đường dẫn !", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-        Glide.with(this).load(photoUrl).error(R.drawable.h_account_circle_24).into(image_userhome);
-
+        requestQueue.add(jsonArrayRequest);
     }
 
 
@@ -229,12 +244,8 @@ public class HomeFragment extends Fragment implements i_Update_List {
     public void onResume() {
         super.onResume();
         showUserInfo();
-    }
-    @Override
-    public void onDataUpdated() {
-        // Gọi phương thức để cập nhật dữ liệu trong Adapter
-        getDataFoodnew();
-        categoryListdataAdapter.setData(getListData());
-
+//        getDataFoodnew();
+//        hCategoryFoodnewAdapter.notifyDataSetChanged();
+        categoryListdataAdapter.notifyDataSetChanged();
     }
 }

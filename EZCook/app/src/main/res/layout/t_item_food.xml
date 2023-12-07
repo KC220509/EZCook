@@ -13,7 +13,6 @@
         android:id="@+id/cardview_category_foodtrend_pic"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:alpha="0.9"
         >
 
         <ImageView

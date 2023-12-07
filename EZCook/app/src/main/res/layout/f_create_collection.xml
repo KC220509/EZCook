@@ -39,7 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="45dp"
             app:backgroundTint="@null"
-            android:text="Tạo"
+            android:text="Lưu"
             android:textColor="#0073FF"
             android:textSize="12sp"
             android:textStyle="bold"

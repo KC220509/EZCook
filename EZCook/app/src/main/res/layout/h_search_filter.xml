@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:background="@drawable/h_background_filter">
+
+    <TextView
+        android:id="@+id/boloc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Tìm kiếm nhanh"
+        android:textColor="@color/black"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:textSize="25sp"
+        android:textStyle="bold"/>
+
+    <LinearLayout
+        android:id="@+id/row1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp">
+
+
+        <Button
+            android:id="@+id/monchay"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:layout_marginRight="10dp"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Món chay"/>
+        <Button
+            android:id="@+id/monman"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:textAllCaps="false"
+            android:text="Món mặn"/>
+        <Button
+            android:id="@+id/monnuoc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Món nước"/>
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp">
+
+
+        <Button
+            android:id="@+id/anvat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:textColor="#fff"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Ăn vặt"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row3"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp">
+
+
+        <Button
+            android:id="@+id/dongot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:layout_marginRight="10dp"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Đồ ngọt"/>
+        <Button
+            android:id="@+id/dochien"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Đồ chiên"/>
+        <Button
+            android:id="@+id/doxao"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:layout_marginLeft="10dp"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            android:textColor="#fff"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Đồ xào"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/row4"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="8dp">
+
+
+        <Button
+            android:id="@+id/moncanh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:layout_marginRight="10dp"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:textColor="#fff"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Món canh"/>
+        <Button
+            android:id="@+id/monhap"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:backgroundTint="@null"
+            android:textColor="#fff"
+            android:textSize="14sp"
+            android:textAllCaps="false"
+            android:background="@drawable/h_background_btnfilter_item"
+            android:text="Món hấp"/>
+
+
+    </LinearLayout>
+
+
+</LinearLayout>

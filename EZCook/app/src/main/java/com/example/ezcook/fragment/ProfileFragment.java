@@ -217,7 +217,7 @@ public class ProfileFragment extends Fragment {
                                     nameuserprofile.setText(nameprofile);
                                     emailuserprofile.setText(emailprofile);
                                     if (avt == null || avt.equals("NULL") || avt.isEmpty()){
-                                        avt = String.valueOf(R.drawable.h_ic_user);
+                                        avt = String.valueOf(R.drawable.h_account_circle_24);
                                     }
                                     Picasso.get().load(avt).into(imageuserprofile);
                                 }

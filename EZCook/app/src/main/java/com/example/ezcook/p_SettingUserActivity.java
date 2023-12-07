@@ -28,6 +28,7 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
+import com.example.ezcook.fragment.FavoriteFragment;
 import com.example.ezcook.fragment.HomeFragment;
 import com.example.ezcook.fragment.ProfileFragment;
 import com.example.ezcook.model.h_category_foodnew_model;
@@ -53,6 +54,7 @@ public class p_SettingUserActivity extends AppCompatActivity {
     h_category_listdata_adapter categoryListdataAdapter;
     ProfileFragment profileFragment;
     HomeFragment homeFragment;
+    FavoriteFragment favoriteFragment;
     LoginActivity reload;
 
     View view_home;
@@ -183,11 +185,14 @@ public class p_SettingUserActivity extends AppCompatActivity {
             homeFragment.category_listdata();
 //            homeFragment.onResume();
         }
+        favoriteFragment = (FavoriteFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentFavorite);
+        if(favoriteFragment != null){
+            favoriteFragment.showUserImage();
+        }
+
 
     }
     private void setUserProfileInfomation() {
-
-
         // Lấy dữ liệu từ URL sử dụng Volley
         final String url = "https://kcfullstack.000webhostapp.com/getDataUser.php";
         RequestQueue requestQueue = Volley.newRequestQueue(p_SettingUserActivity.this);
@@ -210,7 +215,7 @@ public class p_SettingUserActivity extends AppCompatActivity {
                                     emailprofile.setText(email);
                                     phoneprofile.setText(phoneNumber);
                                     if (avt == null || avt.equals("NULL") || avt.isEmpty()){
-                                        avt = String.valueOf(R.drawable.h_ic_user);
+                                        avt = String.valueOf(R.drawable.h_account_circle_24);
                                     }
                                     Picasso.get().load(avt).into(imageprofile);
                                 }
@@ -232,18 +237,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
         requestQueue.add(jsonArrayRequest);
     }
 
-//    private void setUserProfileInfomation() {
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//        if(user == null){
-//            return;
-//        }
-//        nameprofile.setText(user.getDisplayName());
-//        idprofile.setText(user.getUid());
-//        emailprofile.setText(user.getEmail());
-//        phoneprofile.setText(user.getPhoneNumber());
-//        Glide.with(p_SettingUserActivity.this).load(R.drawable.h_account_circle_24).into(imageprofile);
-////        gioithieuprofile.setText(user.get());
-//    }
     private void upadteData() {
 //        final String url = "http://192.168.1.167:8080/DataEzcook/updateUser.php";
         String url = "https://kcfullstack.000webhostapp.com/updateUser.php";
@@ -276,6 +269,7 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 Map<String, String> params = new HashMap<>();
                 params.put("uid", idprofile.getText().toString().trim());
                 params.put("tendangnhap", nameprofile.getText().toString().trim());
+                params.put("phone", phoneprofile.getText().toString().trim());
                 return params;
             }
         };

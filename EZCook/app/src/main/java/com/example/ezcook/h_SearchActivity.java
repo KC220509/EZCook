@@ -187,50 +187,8 @@ public class h_SearchActivity extends AppCompatActivity {
     private void showDialog() {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.setContentView(R.layout.p_bottomsheetlayout);
+        dialog.setContentView(R.layout.h_search_filter);
 
-        LinearLayout layoutSetting = dialog.findViewById(R.id.layoutSetting);
-        LinearLayout layoutCaNhan = dialog.findViewById(R.id.layoutCaNhan);
-        LinearLayout layoutQR = dialog.findViewById(R.id.layoutQR);
-        LinearLayout layoutHD = dialog.findViewById(R.id.layoutHD);
-        LinearLayout layoutAuthor = dialog.findViewById(R.id.layoutAuthor);
-
-        layoutSetting.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myintenSetting = new Intent(h_SearchActivity.this, p_SettingActivity.class);
-                startActivity(myintenSetting);
-            }
-        });
-
-        layoutCaNhan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myintenSettingUser = new Intent(h_SearchActivity.this, p_SettingUserActivity.class);
-                startActivity(myintenSettingUser);
-            }
-        });
-
-        layoutQR.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(h_SearchActivity.this,"QR is click",Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        layoutHD.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(h_SearchActivity.this,"Hoạt động is click",Toast.LENGTH_SHORT).show();
-            }
-        });
-        layoutAuthor.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent myintenSettingUser = new Intent(h_SearchActivity.this, p_AuthorActivity.class);
-                startActivity(myintenSettingUser);
-            }
-        });
 
         dialog.show();
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT);

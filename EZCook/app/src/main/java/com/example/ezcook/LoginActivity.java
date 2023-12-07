@@ -110,18 +110,6 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-
-                            if (user != null) {
-                                // Lấy UID của người dùng
-                                String uid = user.getUid();
-                                String tendangnhap = user.getDisplayName();
-                                // Lấy email của người dùng
-                                String email = user.getEmail();
-
-                                // Lưu UID và email vào cơ sở dữ liệu
-                                saveUidToDatabase(uid, tendangnhap, email);
-                            }
 
 
                             // Sign in success, update UI with the signed-in user's information
@@ -146,7 +134,7 @@ public class LoginActivity extends AppCompatActivity {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         return strEmail.matches(emailPattern);
     }
-    private void saveUidToDatabase(String uid, String tendangnhap, String email) {
+    private void saveUidToDatabase(String uid, String email) {
         String url = "https://kcfullstack.000webhostapp.com/saveUser.php";
 //        final String url = "http://192.168.1.167:8080/DataEzcook/saveUser.php";
         // Tạo một RequestQueue
@@ -158,7 +146,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
-                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
                     }
                 },
                 new Response.ErrorListener() {
@@ -172,7 +160,7 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("uid", uid);
-                params.put("tendangnhap", tendangnhap);
+//                params.put("tendangnhap", tendangnhap);
                 params.put("email", email);
                 return params;
             }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FFFFFF"
+    android:id="@+id/FragmentFavorite"
     tools:context=".fragment.FavoriteFragment">
     <LinearLayout
         android:id="@+id/favorite_header"
@@ -13,7 +14,8 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imageAVT"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="@drawable/h_account_circle_24" />

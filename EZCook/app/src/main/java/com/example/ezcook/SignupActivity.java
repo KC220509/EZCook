@@ -14,11 +14,21 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class SignupActivity extends AppCompatActivity {
     Button bt_signup,bt_login;
@@ -128,7 +138,9 @@ public class SignupActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Đăng ký thành công
                             Toast.makeText(SignupActivity.this, "Đăng ký thành công.", Toast.LENGTH_SHORT).show();
+                            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
+                            saveUidToDatabase(user.getUid(), strName, strEmail, strPhone);
                             Intent intent_signup_success = new Intent(SignupActivity.this, LoginActivity.class);
                             startActivity(intent_signup_success);
                             finish();
@@ -163,5 +175,40 @@ public class SignupActivity extends AppCompatActivity {
 
 
         return true;
+    }
+    private void saveUidToDatabase(String uid, String tendangnhap, String email, String phone) {
+        String url = "https://kcfullstack.000webhostapp.com/saveUser.php";
+        // Tạo một RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        // Tạo một StringRequest để thực hiện POST request
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
+//                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi khi thực hiện request
+                        Toast.makeText(SignupActivity.this, "Lỗi khi gửi thông tin đến máy chủ", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", uid);
+                params.put("tendangnhap", tendangnhap);
+                params.put("email", email);
+                params.put("phone", phone);
+                return params;
+            }
+        };
+
+        // Thêm request vào hàng đợi
+        requestQueue.add(stringRequest);
     }
 }

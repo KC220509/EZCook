@@ -3,12 +3,17 @@ package com.example.ezcook;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
+import androidx.core.app.NotificationCompat;
 
-import android.app.Activity;
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -26,19 +31,18 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
+import com.example.ezcook.adapter.h_NotificationAdapter;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
+import com.example.ezcook.fcm.SQLiteHelper;
+import com.example.ezcook.fcm.SendNotification;
 import com.example.ezcook.fragment.FavoriteFragment;
 import com.example.ezcook.fragment.HomeFragment;
 import com.example.ezcook.fragment.ProfileFragment;
-import com.example.ezcook.model.h_category_foodnew_model;
+import com.example.ezcook.model.h_Notification_Model;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.auth.PhoneAuthCredential;
-import com.google.firebase.auth.PhoneAuthProvider;
 import com.google.firebase.auth.UserProfileChangeRequest;
 import com.squareup.picasso.Picasso;
 
@@ -46,27 +50,29 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
 public class p_SettingUserActivity extends AppCompatActivity {
-    h_category_listdata_adapter categoryListdataAdapter;
     ProfileFragment profileFragment;
     HomeFragment homeFragment;
     FavoriteFragment favoriteFragment;
-    LoginActivity reload;
-
-    View view_home;
 
     Button quaylai_btn;
     FrameLayout update_btn;
     TextView textbtn;
     ProgressBar progressBar_load;
 
-    //profile
+
     private ImageView imageprofile;
     private EditText nameprofile, idprofile, emailprofile, phoneprofile, gioithieuprofile;
+
+    List<h_Notification_Model> notificationList;
+    h_NotificationAdapter notificationAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -146,31 +152,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
             });
 
     }
-//    private void updatePhone(){
-//        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-//
-//        if (user == null){
-//            return;
-//        }
-//        String phone = "84" + phoneprofile.getText().toString().trim();
-//        PhoneAuthCredential addphone = PhoneAuthProvider.getCredential(null, phone);
-//
-//        user.updatePhoneNumber(addphone).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()) {
-//
-//                } else {
-//                    // Lỗi thêm số điện thoại
-//                    Exception e = task.getException();
-//                    if (e instanceof FirebaseAuthInvalidCredentialsException) {
-//                        // Định dạng số điện thoại không hợp lệ
-//                        Toast.makeText(p_SettingUserActivity.this, "Định dạng số điện thoại không hợp lệ", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
-//            }
-//        });
-//    }
 
     private void updateUsernameInFragmentProfile() {
         profileFragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentProfile);
@@ -222,7 +203,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
-
                         }
                     }
                 },
@@ -238,7 +218,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
     }
 
     private void upadteData() {
-//        final String url = "http://192.168.1.167:8080/DataEzcook/updateUser.php";
         String url = "https://kcfullstack.000webhostapp.com/updateUser.php";
         // Tạo một RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -248,9 +227,10 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
+                        // Xử lý phản hồi từ máy chủ
                         if(response.trim().equals("success")){
                             Toast.makeText(p_SettingUserActivity.this, "Cập nhật thành công", Toast.LENGTH_SHORT).show();
+                            sendPushNotification();
                         }
                         else {
                             Toast.makeText(p_SettingUserActivity.this, "Cập nhật không thành công", Toast.LENGTH_SHORT).show();
@@ -274,8 +254,39 @@ public class p_SettingUserActivity extends AppCompatActivity {
             }
         };
 
-        // Thêm request vào hàng đợi
         requestQueue.add(stringRequest);
+    }
+    private void sendPushNotification(){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.h_logo_app);
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        SQLiteHelper dbHelper = new SQLiteHelper(this);
+        h_Notification_Model newNotification = new h_Notification_Model();
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        newNotification.setUser_id(user.getUid());
+        newNotification.setTitle("Update Profile");
+        newNotification.setContent("Cập nhật trang cá nhân thành công");
+        newNotification.setImage(R.drawable.h_logo_app);
+        newNotification.setTime(System.currentTimeMillis());
+
+        // Thêm thông báo vào cơ sở dữ liệu
+        dbHelper.addNotification(newNotification);
+
+        Notification notification = new NotificationCompat.Builder(this, SendNotification.CHANNEL_ID)
+                .setContentTitle("Ezcook")
+                .setContentText("Cập nhật trang cá nhân thành công")
+                .setSmallIcon(R.drawable.h_logo_app)
+                .setLargeIcon(bitmap)
+                .setSound(uri)
+                .setColor(getResources().getColor(R.color.black))
+                .build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if(notificationManager != null){
+            notificationManager.notify(getNotificationId(), notification);
+        }
+    }
+    private int getNotificationId(){
+        return (int) new Date().getTime();
     }
 
 }

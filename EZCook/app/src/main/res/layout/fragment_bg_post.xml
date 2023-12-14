@@ -17,7 +17,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="480dp"
-            android:src="@mipmap/logo_app"/>
+            android:src="@mipmap/h_logo_app"/>
         <Button
             android:id="@+id/btn_sharecongthucmoi"
             android:layout_width="match_parent"

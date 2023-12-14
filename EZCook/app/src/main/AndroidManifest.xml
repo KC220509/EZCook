@@ -8,14 +8,14 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
     
     <application
-        android:name=".MyApplication"
+        android:name=".fcm.SendNotification"
         android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/logo_app"
+        android:icon="@mipmap/h_logo_app"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/logo_app"
+        android:roundIcon="@mipmap/h_logo_app"
         android:supportsRtl="true"
         android:theme="@style/Theme.EZCook"
         tools:targetApi="31">
@@ -99,6 +99,18 @@
 
         <activity
             android:name=".h_SearchActivity"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".h_Notification"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".adapter.h_NotificationAdapter"
+            android:exported="true">
+        </activity>
+        <activity
+            android:name=".model.h_Notification_Model"
             android:exported="true">
         </activity>
         <activity

@@ -35,6 +35,7 @@ import com.example.ezcook.R;
 import com.example.ezcook.adapter.h_category_foodnew_adapter;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
 import com.example.ezcook.adapter.h_category_suggest_adapter;
+import com.example.ezcook.h_Notification;
 import com.example.ezcook.h_SearchActivity;
 import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_regime_eat_model;
@@ -54,12 +55,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HomeFragment extends Fragment{
-    LoginActivity reload;
 
     private MainActivity mainActivity;
 
     private RecyclerView recyclerViewRegimeEat, recyclerViewCategoryData;
-    private ImageView image_userhome;
+    private ImageView image_userhome, imgNotification;
     private TextView name_userhome;
     private LinearLayout action_search;
     List<h_category_listdata_model> categoryListdataModels;
@@ -67,7 +67,6 @@ public class HomeFragment extends Fragment{
 
     h_category_suggest_adapter categorySuggestAdapter;
     List<h_category_foodnew_model> arrayListFoodNew;
-    h_category_foodnew_adapter hCategoryFoodnewAdapter;
 
     @Nullable
     @Override
@@ -77,6 +76,7 @@ public class HomeFragment extends Fragment{
 
         Anhxa(view_home);
         show_activity_search();
+        show_activity_notification();
         regime_recyclerView();
         getDataFoodnew();
         category_listdata();
@@ -87,6 +87,7 @@ public class HomeFragment extends Fragment{
     private void Anhxa(View view){
         image_userhome = view.findViewById(R.id.image_userhome);
         name_userhome = view.findViewById(R.id.tv_name_user);
+        imgNotification = view.findViewById(R.id.imgNotification);
         action_search = view.findViewById(R.id.linear_search);
 
         recyclerViewRegimeEat = view.findViewById(R.id.recycler_category_regime_eat);
@@ -104,6 +105,15 @@ public class HomeFragment extends Fragment{
             public void onClick(View v) {
                 Intent intent_search = new Intent(mainActivity, h_SearchActivity.class);
                 startActivity(intent_search);
+            }
+        });
+    }
+    private void show_activity_notification(){
+        imgNotification.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent show_Notification = new Intent(mainActivity, h_Notification.class);
+                startActivity(show_Notification);
             }
         });
     }
@@ -128,14 +138,11 @@ public class HomeFragment extends Fragment{
         recyclerViewCategoryData.setHasFixedSize(true);
         recyclerViewCategoryData.setLayoutManager(new LinearLayoutManager(mainActivity));
 
-
-
         categorySuggestAdapter = new h_category_suggest_adapter();
         categoryListdataAdapter.setData(getListData());
         recyclerViewCategoryData.setAdapter(categoryListdataAdapter);
     }
     public void getDataFoodnew(){
-//        final String url = "http://192.168.1.167:8080/DataEzcook/getDataFoodnew.php";
         final String url = "https://kcfullstack.000webhostapp.com/getDataFoodnew.php";
         RequestQueue requestQueue = Volley.newRequestQueue(mainActivity);
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null,
@@ -159,7 +166,6 @@ public class HomeFragment extends Fragment{
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
-
                         }
                         categoryListdataAdapter.notifyDataSetChanged();
                     }
@@ -175,7 +181,6 @@ public class HomeFragment extends Fragment{
         requestQueue.add(jsonArrayRequest);
     }
 
-
     private List<h_category_listdata_model> getListData() {
 
         List<h_category_suggest_model> categorySuggestModels = new ArrayList<>();
@@ -189,12 +194,8 @@ public class HomeFragment extends Fragment{
         categorySuggestModels.add(new h_category_suggest_model(R.drawable.cat_3, "Mì xào hải sản", "20 phút", "120 kcal",R.drawable.h_ic_easy));
 
 
-
-
         categoryListdataModels = new ArrayList<>();
         categoryListdataModels.add(new h_category_listdata_model(CATEGORY_SUGGEST, "Gợi ý hôm nay", categorySuggestModels, null));
-//        categoryListdataModels.add(new h_category_listdata_model(CATEGORY_FOODNEW, "Món ăn mới nhất", null, categoryFoodnewModels));
-
         categoryListdataModels.add(new h_category_listdata_model(CATEGORY_FOODNEW, "Món ăn mới nhất", null, arrayListFoodNew));
 
         return categoryListdataModels;
@@ -224,7 +225,6 @@ public class HomeFragment extends Fragment{
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
                             }
-
                         }
                     }
                 },
@@ -238,7 +238,6 @@ public class HomeFragment extends Fragment{
 
         requestQueue.add(jsonArrayRequest);
     }
-
 
     @Override
     public void onResume() {

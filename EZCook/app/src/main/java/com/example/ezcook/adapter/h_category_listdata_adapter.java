@@ -21,7 +21,6 @@ import com.example.ezcook.AnimationUtil;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.f_StepCookActivity;
-import com.example.ezcook.model.h_category_food_model;
 import com.example.ezcook.model.h_category_foodnew_model;
 import com.example.ezcook.model.h_category_listdata_model;
 import com.example.ezcook.model.h_category_suggest_model;

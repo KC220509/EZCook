@@ -38,15 +38,13 @@ public class h_NotificationAdapter extends RecyclerView.Adapter<h_NotificationAd
         h_Notification_Model notification = notificationList.get(position);
         // Hiển thị thông tin của thông báo trong ViewHolder
 
-//        Picasso.get().load(notification.getImage()).into(holder.image);
+        Picasso.get().load(notification.getImage()).into(holder.image);
 
-        holder.image.setImageResource(notification.getImage());
         holder.title.setText(notification.getTitle());
         holder.content.setText(notification.getContent());
         long time = notification.getTime();
-        String formattedTime = new SimpleDateFormat("dd/MM/yyyy HH:mm", Locale.getDefault()).format(new Date(time));
-        holder.tvtime.setText(formattedTime);
-
+        String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(new Date(time));
+        holder.tvtime.setText(timestamp);
 
     }
 

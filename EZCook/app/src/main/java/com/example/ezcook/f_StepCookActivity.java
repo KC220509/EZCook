@@ -107,14 +107,11 @@ public class f_StepCookActivity extends AppCompatActivity {
                     Picasso.get().load(hCategoryFoodnewModel.getPic()).into(imagedetail);
                     titledetail.setText(hCategoryFoodnewModel.getTitle());
 
-
                 }
             }
 
         }
     private List<f_ListData_detail> getList_DetailData() {
-
-
 
         List<f_Step_detail> listStep = new ArrayList<>();
         listStep.add(new f_Step_detail("Buoc 1","Chuẩn bị 1 chiếc nồi sạch đổ : 250ml sữa tươi, 250ml sữa đặc, 400ml nước cốt dừa ( 1 lon ) quậy đều tay để các nguyên liệu được hòa với nhau."));

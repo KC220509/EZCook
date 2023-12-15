@@ -32,8 +32,6 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.ezcook.adapter.h_NotificationAdapter;
-import com.example.ezcook.adapter.h_category_listdata_adapter;
-import com.example.ezcook.fcm.SQLiteHelper;
 import com.example.ezcook.fcm.SendNotification;
 import com.example.ezcook.fragment.FavoriteFragment;
 import com.example.ezcook.fragment.HomeFragment;
@@ -50,10 +48,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.util.ArrayList;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 
@@ -173,6 +172,7 @@ public class p_SettingUserActivity extends AppCompatActivity {
 
 
     }
+
     private void setUserProfileInfomation() {
         // Lấy dữ liệu từ URL sử dụng Volley
         final String url = "https://kcfullstack.000webhostapp.com/getDataUser.php";
@@ -256,26 +256,58 @@ public class p_SettingUserActivity extends AppCompatActivity {
 
         requestQueue.add(stringRequest);
     }
+    private void addNotification(String uid, String tieude, String noidung, String image, String time){
+        String url = "https://kcfullstack.000webhostapp.com/addNotification.php";
+        // Tạo một RequestQueue
+        RequestQueue requestQueue = Volley.newRequestQueue(this);
+
+        // Tạo một StringRequest để thực hiện POST request
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
+//                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi khi thực hiện request
+                        Toast.makeText(p_SettingUserActivity.this, "Lỗi khi gửi thông tin đến máy chủ", Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String, String> params = new HashMap<>();
+                params.put("uid", uid);
+                params.put("tieude", tieude);
+                params.put("noidung", noidung);
+                params.put("image", image);
+                params.put("time", time);
+                return params;
+            }
+        };
+
+        // Thêm request vào hàng đợi
+        requestQueue.add(stringRequest);
+    }
     private void sendPushNotification(){
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.h_logo_app);
         Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
 
-        SQLiteHelper dbHelper = new SQLiteHelper(this);
-        h_Notification_Model newNotification = new h_Notification_Model();
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        newNotification.setUser_id(user.getUid());
-        newNotification.setTitle("Update Profile");
-        newNotification.setContent("Cập nhật trang cá nhân thành công");
-        newNotification.setImage(R.drawable.h_logo_app);
-        newNotification.setTime(System.currentTimeMillis());
+        long currentTimeMillis = System.currentTimeMillis();
+        String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(new Date(currentTimeMillis));
 
-        // Thêm thông báo vào cơ sở dữ liệu
-        dbHelper.addNotification(newNotification);
+        String image = "android.resource://" + getPackageName() + "/" + R.drawable.h_logo_app;
+
+        addNotification(user.getUid(), "Update Profile", "Cập nhật trang cá nhân thành công", image, timestamp);
 
         Notification notification = new NotificationCompat.Builder(this, SendNotification.CHANNEL_ID)
                 .setContentTitle("Ezcook")
                 .setContentText("Cập nhật trang cá nhân thành công")
-                .setSmallIcon(R.drawable.h_logo_app)
+                .setSmallIcon(R.drawable.logo_app)
                 .setLargeIcon(bitmap)
                 .setSound(uri)
                 .setColor(getResources().getColor(R.color.black))

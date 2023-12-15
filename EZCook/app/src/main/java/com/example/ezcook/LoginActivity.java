@@ -1,6 +1,13 @@
 package com.example.ezcook;
 
+import android.app.Notification;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +21,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -21,6 +29,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.ezcook.fcm.SendNotification;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
@@ -28,7 +37,10 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 public class LoginActivity extends AppCompatActivity {
@@ -110,9 +122,7 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
 
-
-
-                            // Sign in success, update UI with the signed-in user's information
+                            sendPushNotificationLogin();
                             Toast.makeText(LoginActivity.this, "Chào" + " " + ipEmail, Toast.LENGTH_SHORT).show();
 
                             Intent intent_login_success = new Intent(LoginActivity.this, MainActivity.class);
@@ -134,9 +144,8 @@ public class LoginActivity extends AppCompatActivity {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         return strEmail.matches(emailPattern);
     }
-    private void saveUidToDatabase(String uid, String email) {
-        String url = "https://kcfullstack.000webhostapp.com/saveUser.php";
-//        final String url = "http://192.168.1.167:8080/DataEzcook/saveUser.php";
+    private void addNotification(String uid, String tieude, String noidung, String image, String time){
+        String url = "https://kcfullstack.000webhostapp.com/addNotification.php";
         // Tạo một RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -160,8 +169,10 @@ public class LoginActivity extends AppCompatActivity {
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
                 params.put("uid", uid);
-//                params.put("tendangnhap", tendangnhap);
-                params.put("email", email);
+                params.put("tieude", tieude);
+                params.put("noidung", noidung);
+                params.put("image", image);
+                params.put("time", time);
                 return params;
             }
         };
@@ -169,4 +180,33 @@ public class LoginActivity extends AppCompatActivity {
         // Thêm request vào hàng đợi
         requestQueue.add(stringRequest);
     }
+    private void sendPushNotificationLogin(){
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.h_logo_app);
+        Uri uri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        long currentTimeMillis = System.currentTimeMillis();
+        String timestamp = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss", Locale.getDefault()).format(new Date(currentTimeMillis));
+
+        String image = "android.resource://" + getPackageName() + "/" + R.drawable.h_logo_app;
+
+        addNotification(user.getUid(), "Login success", "Chào mừng " + user.getDisplayName() + " đến với Ezcook", image, timestamp);
+
+        Notification notification = new NotificationCompat.Builder(this, SendNotification.CHANNEL_ID)
+                .setContentTitle("Ezcook")
+                .setContentText("Chào mừng " + user.getDisplayName() + " đến với Ezcook")
+                .setSmallIcon(R.drawable.logo_app)
+                .setLargeIcon(bitmap)
+                .setSound(uri)
+                .setColor(getResources().getColor(R.color.black))
+                .build();
+        NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        if(notificationManager != null){
+            notificationManager.notify(getNotificationId(), notification);
+        }
+    }
+    private int getNotificationId(){
+        return (int) new Date().getTime();
+    }
+
 }

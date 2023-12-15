@@ -5,12 +5,12 @@ public class h_Notification_Model {
     String user_id;
     String title;
     String content;
-    int image;
+    String image;
     Long time;
     public h_Notification_Model() {}
-    public h_Notification_Model(int id, String user_id, String title, String content, int image, Long time) {
-        this.id = id;
-        this.user_id = user_id;
+    public h_Notification_Model(String title, String content, String image, Long time) {
+//        this.id = id;
+//        this.user_id = user_id;
         this.title = title;
         this.content = content;
         this.image = image;
@@ -49,11 +49,11 @@ public class h_Notification_Model {
         this.content = content;
     }
 
-    public int getImage() {
+    public String getImage() {
         return image;
     }
 
-    public void setImage(int image) {
+    public void setImage(String image) {
         this.image = image;
     }
 

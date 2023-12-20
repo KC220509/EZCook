@@ -266,7 +266,7 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Xử lý phản hồi từ máy chủ (có thể hiển thị thông báo hoặc thực hiện các hành động khác)
+                        // Xử lý phản hồi từ máy chủ
 //                        Toast.makeText(LoginActivity.this, response, Toast.LENGTH_SHORT).show();
                     }
                 },
@@ -288,7 +288,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 return params;
             }
         };
-
         // Thêm request vào hàng đợi
         requestQueue.add(stringRequest);
     }

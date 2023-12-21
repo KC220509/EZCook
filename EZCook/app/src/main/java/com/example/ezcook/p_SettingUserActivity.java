@@ -3,17 +3,23 @@ package com.example.ezcook;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.core.app.NotificationCompat;
 
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -31,12 +37,15 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.ezcook.adapter.h_NotificationAdapter;
+import com.example.ezcook.fcm.ImageLoader;
+import com.example.ezcook.fcm.RealPathUtil;
 import com.example.ezcook.fcm.SendNotification;
 import com.example.ezcook.fragment.FavoriteFragment;
 import com.example.ezcook.fragment.HomeFragment;
 import com.example.ezcook.fragment.ProfileFragment;
-import com.example.ezcook.model.h_Notification_Model;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -51,7 +60,6 @@ import org.json.JSONObject;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
@@ -66,27 +74,29 @@ public class p_SettingUserActivity extends AppCompatActivity {
     TextView textbtn;
     ProgressBar progressBar_load;
 
+    ImageView imageprofile;
+    EditText nameprofile, idprofile, emailprofile, phoneprofile, gioithieuprofile;
+    CardView chonAVT;
+    private Uri selectedImageUri;
+    private String oldImageUrl;
 
-    private ImageView imageprofile;
-    private EditText nameprofile, idprofile, emailprofile, phoneprofile, gioithieuprofile;
-
-    List<h_Notification_Model> notificationList;
-    h_NotificationAdapter notificationAdapter;
-
+    private static final int REQUEST_CODE_PICK_IMAGE_PROFILE = 100;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.p_activity_setting_user);
 
         Anhxa();
         Action();
         setUserProfileInfomation();
-//        initListener();
     }
 
     private void Anhxa() {
         quaylai_btn = findViewById(R.id.quaylai_btn);
+        chonAVT = findViewById(R.id.chonAVT);
         imageprofile = findViewById(R.id.imgage_Profile);
+
         nameprofile = findViewById(R.id.editTextNameProfile);
         idprofile = findViewById(R.id.editTextIDProfile);
         emailprofile = findViewById(R.id.editTextEmailProfile);
@@ -96,6 +106,8 @@ public class p_SettingUserActivity extends AppCompatActivity {
         update_btn = findViewById(R.id.btn_update_profile);
         textbtn = findViewById(R.id.text_btn);
         progressBar_load = findViewById(R.id.progressbar);
+
+
     }
     private void Action() {
         quaylai_btn.setOnClickListener(new View.OnClickListener() {
@@ -104,6 +116,15 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
+        chonAVT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openGallery();
+            }
+        });
+
 
         update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +140,29 @@ public class p_SettingUserActivity extends AppCompatActivity {
                 },1000);
             }
         });
+
+
+    }
+    private void openGallery() {
+//        Intent galleryIntent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+//        startActivityForResult(galleryIntent, REQUEST_CODE_PICK_IMAGE_PROFILE);
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType("image/*");
+            intent.putExtra(Intent.EXTRA_LOCAL_ONLY, true);
+            startActivityForResult(intent, REQUEST_CODE_PICK_IMAGE_PROFILE);
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_CODE_PICK_IMAGE_PROFILE && resultCode == RESULT_OK && data != null) {
+
+            selectedImageUri = data.getData();
+
+            if (selectedImageUri != null) {
+                Picasso.get().load(selectedImageUri).into(imageprofile);
+            }
+        }
     }
 
     private void onClickUpdateProfile() {
@@ -127,30 +171,44 @@ public class p_SettingUserActivity extends AppCompatActivity {
         if (user == null){
             return;
         }
+
         String strName = nameprofile.getText().toString().trim();
+        String strPhone = phoneprofile.getText().toString().trim();
+        String strGioiThieu = gioithieuprofile.getText().toString().trim();
 
-        UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
-                .setDisplayName(strName)
-                .build();
+        if (selectedImageUri != null) {
+            UserProfileChangeRequest profileUpdates = new UserProfileChangeRequest.Builder()
+                    .setDisplayName(strName)
+                    .build();
 
-        user.updateProfile(profileUpdates)
-            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
+            user.updateProfile(profileUpdates)
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if (task.isSuccessful()) {
+//                                String strPath = RealPathUtil.getRealPath(getApplicationContext(), selectedImageUri);
+//                                File file = new File(strPath);
 
-                        upadteData();
-                        progressBar_load.setVisibility(View.INVISIBLE);
-                        textbtn.setVisibility(View.VISIBLE);
 
-                        // Cập nhật tên người dùng
-                        updateUsernameInFragmentProfile();
+                                    upadteData(strName, strPhone, strGioiThieu, selectedImageUri.toString());
+                                    progressBar_load.setVisibility(View.INVISIBLE);
+                                    textbtn.setVisibility(View.VISIBLE);
 
-                    }
-                }
-            });
+                                    // Cập nhật tên người dùng
+                                    updateUsernameInFragmentProfile();
 
+                            }
+                        }
+                    });
+        }
+        else{
+            upadteData(strName, strPhone, strGioiThieu, oldImageUrl);
+            progressBar_load.setVisibility(View.INVISIBLE);
+            textbtn.setVisibility(View.VISIBLE);
+            updateUsernameInFragmentProfile();
+        }
     }
+
 
     private void updateUsernameInFragmentProfile() {
         profileFragment = (ProfileFragment) getSupportFragmentManager().findFragmentById(R.id.FragmentProfile);
@@ -170,7 +228,6 @@ public class p_SettingUserActivity extends AppCompatActivity {
             favoriteFragment.showUserImage();
         }
 
-
     }
 
     private void setUserProfileInfomation() {
@@ -189,16 +246,21 @@ public class p_SettingUserActivity extends AppCompatActivity {
                                 String email = object.getString("EMAIL");
                                 String phoneNumber = object.getString("PHONE");
                                 String avt = object.getString("AVT");
+                                String gioithieu = object.getString("GIOITHIEU");
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (uid.equals(user.getUid())) {
                                     idprofile.setText(uid);
                                     nameprofile.setText(tendangnhap);
                                     emailprofile.setText(email);
                                     phoneprofile.setText(phoneNumber);
-                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
-                                        avt = String.valueOf(R.drawable.h_account_circle_24);
+                                    oldImageUrl = avt;
+                                    if(avt.equals("") || avt == null){
+                                        Picasso.get().load(R.drawable.h_account_circle_24).into(imageprofile);
                                     }
-                                    Picasso.get().load(avt).into(imageprofile);
+                                    else {
+                                        Picasso.get().load(Uri.parse(avt)).into(imageprofile);
+                                    }
+                                    gioithieuprofile.setText(gioithieu);
                                 }
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
@@ -213,12 +275,17 @@ public class p_SettingUserActivity extends AppCompatActivity {
                         Toast.makeText(p_SettingUserActivity.this, "Lỗi truy cập đường dẫn !", Toast.LENGTH_SHORT).show();
                     }
                 });
-
         requestQueue.add(jsonArrayRequest);
     }
 
-    private void upadteData() {
+    private void upadteData(String name, String phone, String gioithieu, String imageUrl) {
         String url = "https://kcfullstack.000webhostapp.com/updateUser.php";
+
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user == null) {
+            return;
+        }
         // Tạo một RequestQueue
         RequestQueue requestQueue = Volley.newRequestQueue(this);
 
@@ -247,9 +314,11 @@ public class p_SettingUserActivity extends AppCompatActivity {
             @Override
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<>();
-                params.put("uid", idprofile.getText().toString().trim());
-                params.put("tendangnhap", nameprofile.getText().toString().trim());
-                params.put("phone", phoneprofile.getText().toString().trim());
+                params.put("uid", user.getUid());
+                params.put("tendangnhap", name);
+                params.put("phone", phone);
+                params.put("avt", imageUrl);
+                params.put("gioithieu", gioithieu);
                 return params;
             }
         };

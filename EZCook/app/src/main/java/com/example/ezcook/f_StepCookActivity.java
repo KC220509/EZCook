@@ -116,18 +116,11 @@ public class f_StepCookActivity extends AppCompatActivity {
         }
     private List<f_ListData_detail> getList_DetailData() {
 
-//        List<f_Step_detail> listStep = new ArrayList<>();
-//        listStep.add(new f_Step_detail("Buoc 1","Chuẩn bị 1 chiếc nồi sạch đổ : 250ml sữa tươi, 250ml sữa đặc, 400ml nước cốt dừa ( 1 lon ) quậy đều tay để các nguyên liệu được hòa với nhau."));
-//        listStep.add(new f_Step_detail("Buoc 2","Tiếp tục cho dừa tươi nạo sợi, một ít muối vào quậy đều."));
-//        listStep.add(new f_Step_detail("Buoc 3","Đun hỗn hợp ở lửa trung bình và luôn quậy đều để hỗn hợp không bị cháy"));
-//        listStep.add(new f_Step_detail("Buoc 4","Khi hỗn hợp sữa được 70°C ta cho 30gr sữa bột vào quậy tan ."));
-//        listStep.add(new f_Step_detail("Buoc 5"," Đổ 50ml sữa còn lại vào 25gr bột ngô để bột ngô được hòa tan và tiếp tục đổ vào nồi hỗn hợp."));
-//        listStep.add(new f_Step_detail("Buoc 6","Khi nồi hỗn hợp sôi lục bục ta tắt bếp và để nguội mới đổ vào khuôn kem ."));
 
 
         listDataDetails = new ArrayList<>();
-        listDataDetails.add(new f_ListData_detail(Type_ingredient, "Nguyên liệu", listNguyenlieu,null));
-        listDataDetails.add(new f_ListData_detail(Type_Step,"Cách làm",null, listStep));
+        listDataDetails.add(new f_ListData_detail(Type_ingredient, "Nguyên Liệu", listNguyenlieu,null));
+        listDataDetails.add(new f_ListData_detail(Type_Step,"Hướng Dẫn",null, listStep));
 
 
         return listDataDetails;

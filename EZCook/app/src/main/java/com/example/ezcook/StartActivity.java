@@ -3,6 +3,7 @@ package com.example.ezcook;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.ktx.Firebase;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.squareup.picasso.Picasso;
 
 public class StartActivity extends AppCompatActivity {
 
@@ -82,6 +84,7 @@ public class StartActivity extends AppCompatActivity {
         }
         finish();
     }
+
 
 
 }

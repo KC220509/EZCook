@@ -1,12 +1,12 @@
 package com.example.ezcook.fragment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -26,6 +26,7 @@ import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.f_ViewPagerAdapterFavorite_adapter;
 import com.example.ezcook.f_CreateActivity;
+import com.example.ezcook.fcm.ImageLoader;
 import com.google.android.material.tabs.TabLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -88,10 +89,13 @@ public class FavoriteFragment extends Fragment {
                                 String avt = object.getString("AVT");
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (uid.equals(user.getUid())) {
-                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
-                                        avt = String.valueOf(R.drawable.h_account_circle_24);
+                                    if(avt.equals("") || avt == null){
+                                        Picasso.get().load(R.drawable.h_account_circle_24).into(imageUserFavorite);
                                     }
-                                    Picasso.get().load(avt).into(imageUserFavorite);
+                                    else {
+                                        Picasso.get().load(Uri.parse(avt)).into(imageUserFavorite);
+                                    }
+
                                 }
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);

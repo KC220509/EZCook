@@ -4,9 +4,10 @@ import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_FO
 import static com.example.ezcook.adapter.h_category_listdata_adapter.CATEGORY_SUGGEST;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,13 +29,11 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
-import com.example.ezcook.LoginActivity;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
-import com.example.ezcook.adapter.h_category_foodnew_adapter;
 import com.example.ezcook.adapter.h_category_regime_eat_adapter;
 import com.example.ezcook.adapter.h_category_suggest_adapter;
+import com.example.ezcook.fcm.ImageLoader;
 import com.example.ezcook.h_Notification;
 import com.example.ezcook.h_SearchActivity;
 import com.example.ezcook.model.h_category_foodnew_model;
@@ -42,7 +41,6 @@ import com.example.ezcook.model.h_category_regime_eat_model;
 import com.example.ezcook.model.h_category_suggest_model;
 import com.example.ezcook.adapter.h_category_listdata_adapter;
 import com.example.ezcook.model.h_category_listdata_model;
-import com.example.ezcook.p_SettingUserActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
@@ -51,6 +49,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -85,6 +84,8 @@ public class HomeFragment extends Fragment{
     }
 
     private void Anhxa(View view){
+
+
         image_userhome = view.findViewById(R.id.image_userhome);
         name_userhome = view.findViewById(R.id.tv_name_user);
         imgNotification = view.findViewById(R.id.imgNotification);
@@ -217,13 +218,18 @@ public class HomeFragment extends Fragment{
                                 FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                                 if (uid.equals(user.getUid())) {
                                     name_userhome.setText(nameuser);
-                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
-                                        avt = String.valueOf(R.drawable.h_account_circle_24);
+//                                    Picasso.get().load(Uri.parse(avt)).into(image_userhome);
+//                                    ImageLoader.loadImage(mainActivity, image_userhome, avt);
+                                    if(avt.equals("") || avt == null){
+                                        Picasso.get().load(R.drawable.h_account_circle_24).into(image_userhome);
                                     }
-                                    Picasso.get().load(avt).into(image_userhome);
+                                    else {
+                                        Picasso.get().load(Uri.parse(avt)).into(image_userhome);
+                                    }
                                 }
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
+
                             }
                         }
                     }
@@ -238,6 +244,7 @@ public class HomeFragment extends Fragment{
 
         requestQueue.add(jsonArrayRequest);
     }
+
 
     @Override
     public void onResume() {

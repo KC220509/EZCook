@@ -1,14 +1,11 @@
 package com.example.ezcook.fragment;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -33,7 +30,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
-import com.bumptech.glide.Glide;
 import com.example.ezcook.MainActivity;
 import com.example.ezcook.R;
 import com.example.ezcook.adapter.p_AdapterViewPager;
@@ -51,22 +47,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class ProfileFragment extends Fragment {
-//    public static final int MY_REQUEST_CODE = 10;
-//    private ActivityResultLauncher<Intent> intentActivityResultLauncher = registerForActivityResult(
-//            new ActivityResultContracts.StartActivityForResult(),new ActivityResultCallback<ActivityResult>() {
-//        @Override
-//        public void onActivityResult(ActivityResult result) {
-//            if(result.getResultCode() == RESULT_OK){
-//                Intent intent = result.getData();
-//                if(intent == null){
-//                    return;
-//                }
-//                Uri uri = intent.getData();
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(, uri);
-//
-//            }
-//        }
-//    });
 
     private View view_home;
     private MainActivity mainActivity;
@@ -216,10 +196,12 @@ public class ProfileFragment extends Fragment {
                                     idnameuserprofile.setText(nameprofile);
                                     nameuserprofile.setText(nameprofile);
                                     emailuserprofile.setText(emailprofile);
-                                    if (avt == null || avt.equals("NULL") || avt.isEmpty()){
-                                        avt = String.valueOf(R.drawable.h_account_circle_24);
+                                    if(avt.equals("") || avt == null){
+                                        Picasso.get().load(R.drawable.h_account_circle_24).into(imageuserprofile);
                                     }
-                                    Picasso.get().load(avt).into(imageuserprofile);
+                                    else {
+                                        Picasso.get().load(Uri.parse(avt)).into(imageuserprofile);
+                                    }
                                 }
                             } catch (JSONException e) {
                                 throw new RuntimeException(e);
@@ -245,23 +227,5 @@ public class ProfileFragment extends Fragment {
         showUserProfileInfo();
     }
 
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        if(requestCode == MY_REQUEST_CODE){
-//            if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-//                openGallery();
-//            }else {
-//
-//            }
-//        }
-//    }
-//    public void openGallery(){
-//        Intent intent = new Intent();
-//        intent.setType("image/*");
-//        intent.setAction(Intent.ACTION_GET_CONTENT);
-//        intentActivityResultLauncher.launch(Intent.createChooser(intent, "Select image"));
-//
-//    }
 
 }

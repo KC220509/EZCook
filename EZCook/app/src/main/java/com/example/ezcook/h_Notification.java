@@ -41,7 +41,7 @@ public class h_Notification extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.h_notification);
+        setContentView(R.layout.h_activity_notification);
         Anhxa();
         Action();
 

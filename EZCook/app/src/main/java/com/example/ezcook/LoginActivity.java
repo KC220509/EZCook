@@ -140,6 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
 
     }
+
     private boolean isEmailValid(String strEmail) {
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
         return strEmail.matches(emailPattern);
